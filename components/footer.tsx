@@ -43,9 +43,10 @@ const COLUMNS: { title: string; items: Item[] }[] = [
   },
 ];
 
-const PHONE = { display: "+1 307 218 5715", href: "tel:+13072185715" };
-const WHATSAPP = { display: "+91 99799 72714", href: "https://wa.me/919979972714" };
-const ADDRESS = "30 N Gould St, Ste R, Sheridan, WY 82801";
+const PHONE = { display: "+91 99799 72714", href: "tel:+919979972714" };
+const WHATSAPP = "https://wa.me/919979972714";
+const ADDRESS =
+  "17, 7th Main Rd, Indira Nagar II Stage, Hoysala Nagar, Indiranagar, Bengaluru, Karnataka 560008";
 
 function Icon({ d }: { d: string }) {
   return (
@@ -131,22 +132,21 @@ export function Footer() {
         </nav>
 
         <div className="mt-14 flex flex-col gap-4 border-t border-hairline py-8 lg:flex-row lg:flex-wrap lg:items-center lg:gap-x-10">
-          <p className="flex items-center gap-3 text-[16px] text-ink">
+          <address className="flex max-w-[27rem] items-start gap-3 text-[16px] leading-snug text-ink not-italic">
             <Icon d={PIN} />
             {ADDRESS}
-          </p>
+          </address>
           <a href={PHONE.href} className="flex items-center gap-3 rounded text-[16px] text-ink hover:underline underline-offset-4">
             <Icon d={PHONE_ICON} />
             <span className="sr-only">Phone: </span>
             {PHONE.display}
           </a>
           <External
-            href={WHATSAPP.href}
+            href={WHATSAPP}
             className="flex items-center gap-3 rounded text-[16px] text-ink hover:underline underline-offset-4"
           >
             <Icon d={CHAT} />
-            <span className="sr-only">WhatsApp: </span>
-            {WHATSAPP.display}{" "}
+            WhatsApp{" "}
           </External>
           <ul className="flex gap-3 pt-2 lg:ml-auto lg:pt-0">
             {SOCIAL.map((x) => (
