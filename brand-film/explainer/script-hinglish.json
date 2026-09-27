@@ -1,0 +1,39 @@
+[
+ {"id": "problem", "clauses": [
+  "{every}हर दिन, आपके customers WhatsApp पर {the}वही {things}सवाल पूछते हैं।",
+  "{where}मेरा order कहाँ है?",
+  "{return}क्या मैं इसे return कर सकता हूँ?",
+  "{and}और हर जवाब, {from}आप खुद देते हैं, {hand}हाथ से।"
+ ]},
+ {"id": "intro", "clauses": [
+  "{lane}Lane Desk, {managed}एक managed WhatsApp support desk है, {indian}Indian online stores के लिए।"
+ ]},
+ {"id": "routes", "clauses": [
+  "{every}हर message, पाँच में से एक route लेता है।",
+  "{order}Order के सवालों का जवाब सीधे आपके store से आता है,",
+  "{number}लेकिन तभी, जब customer का number order से {matches}match करे।"
+ ]},
+ {"id": "guard", "clauses": [
+  "{when}जब AI कोई reply draft करता है,",
+  "{reply}तो reply guard पहले उसे आपकी policy से check करता है।",
+  "{if}अगर उसमें ऐसा {discount}discount है, जो आप देते ही नहीं,",
+  "{then}तो वो reply {held}hold हो जाता है।"
+ ]},
+ {"id": "handoff", "clauses": [
+  "{hard}और जब मामला मुश्किल हो,",
+  "{person}तो एक इंसान बात संभाल लेता है, {chat}पूरी chat के साथ,",
+  "{repeat}ताकि किसी को कुछ दोहराना न पड़े।"
+ ]},
+ {"id": "service", "clauses": [
+  "{bot0}आपको कोई bot set up नहीं करना है।",
+  "{botlane}BotLane {connects}आपका store connect करता है, {policy}आपके साथ policy लिखता है, {reviews}और हर हफ़्ते review करता है।"
+ ]},
+ {"id": "pilot", "clauses": [
+  "{start}शुरुआत एक pilot से करें,",
+  "सिर्फ़ {6}छह हज़ार नौ सौ निन्यानवे {rupees}रुपये {month}महीने में।"
+ ]},
+ {"id": "close", "clauses": [
+  "{lane}Lane Desk.",
+  "{fast}Fast answers, safe answers, {when}और जब ज़रूरत हो, {matters}एक इंसान।"
+ ]}
+]

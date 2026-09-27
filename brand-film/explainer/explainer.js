@@ -52,7 +52,7 @@
   const CONV = VO.service + LEN.service + 0.13;
   const PILOT_IN = CONV + 1.28;
   VO.pilot = PILOT_IN + 0.42;
-  const PILOT_OUT = VO.pilot + LEN.pilot + 1.1;
+  const PILOT_OUT = Math.max(VO.pilot + LEN.pilot + 1.1, PILOT_IN + 6.42); // time to read the offer
   VO.close = PILOT_OUT + 0.7;
   const DUR = Math.max(60, VO.close + LEN.close + 2.4);
   let K, darkE, E_v, E_iris, E_held;

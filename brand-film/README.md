@@ -112,3 +112,12 @@ New scenes cover what the film doesn't say.
 - **Timing:** each line is split into segments, and each segment is tagged with the beat it carries (`held`, `matches`, `discount`…). `voice_segments.py` speaks the segments and joins them with natural pauses, so every beat time is exact. The picture uses those times, so VERIFIED, the strike-through and HELD land on the Hindi words for them.
 - **Length:** Hindi sentences run longer, so the edit stretches to about 75 seconds. Each section waits for its line, and nothing overlaps. The English build is unchanged at 60 seconds.
 - **Voice:** Kokoro `hf_alpha` at 1.25× speed, the clearest of the four Hindi voices by character error rate against the script. It still flattens some aspirated sounds, for example हाथ comes out close to "हाद". For a native-sounding voice, generate the lines with ElevenLabs (multilingual) or record them, save them as `out/vo-hi/<id>.wav`, and keep the anchor times, or re-split them to match.
+
+## Hinglish voiceover version (Sarvam AI)
+
+`explainer/build-hinglish.sh` builds the explainer with a Hinglish voiceover from **Sarvam AI's Bulbul v3**, which is built for Indian languages and code-mixed speech. It uses the speaker `shreya` at 1.1× pace. The picture and on-screen text are unchanged.
+
+- **Script:** `explainer/script-hinglish.json` is natural Hinglish: Hindi sentences with English words written in English (customers, WhatsApp, order, policy, discount, hold), the way store owners actually talk.
+- **Timing:** each clause is spoken whole, for natural delivery. Beat anchors are written inline as `{held}`, `{matches}` and so on. An anchor at the start of a clause is exact. One inside a clause is placed by its syllable position within the clause.
+- **Length:** about 67 seconds. The pilot scene keeps at least the English cut's length, so the launch offer can be read.
+- **Key:** the API key is read from `SARVAM_API_KEY` only and is never written to the repo. Regenerating the voice needs a key. The rest of the build doesn't.
