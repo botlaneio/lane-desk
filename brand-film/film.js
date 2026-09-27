@@ -1417,12 +1417,16 @@
   }
 
   // ---------------------------------------------------------------- frame
-  function render(ctx, t, W, H) {
+  // o (all optional, used by the explainer): camT = time for camera and shake, cam = explicit
+  // camera {x, y, z}, zoom = extra push around the frame centre, world(ctx) = overlay drawn in world space
+  function render(ctx, t, W, H, o = {}) {
     if (!L.ready) layout(ctx);
     if (!CAM.length) buildCam();
     const S = W / 1920;
-    const cam = camAt(t);
-    const sh = shake(t);
+    const ct = o.camT ?? t;
+    const cam = { ...(o.cam || camAt(ct)) };
+    if (o.zoom) cam.z *= o.zoom;
+    const sh = o.sh || (o.noShake ? { x: 0, y: 0, r: 0 } : shake(ct));
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.fillStyle = C.paper;
     ctx.fillRect(0, 0, W, H);
@@ -1440,6 +1444,7 @@
       ctx.scale(z, z);
       ctx.translate(-cam.x, -cam.y);
       drawWorld(ctx, t, cam);
+      if (o.world) o.world(ctx, cam);
     }
 
     // dark scene, opened by the iris from the message dot
@@ -1550,5 +1555,12 @@
     return fast.some(([a, b]) => t >= a && t <= b) ? 16 : 5;
   }
 
-  window.FILM = { render, finish, cues, samplesAt, DUR, FPS, T, layout: (ctx) => layout(ctx) };
+  // building blocks for the explainer (explainer/explainer.js)
+  const lib = {
+    C, SANS, MONO, E, clamp, lerp, prog, spring, hash, noise, font, wrap, rrect, chip, marker, dot,
+    arrowPath, checkPath, layoutCard, drawCard, camAt, gateBox, laneY, L, T,
+    W: { LANE_Y, GAP, X_F, X_E, X_G, LC, OV, MS, MX, MY },
+  };
+
+  window.FILM = { render, finish, cues, samplesAt, DUR, FPS, T, lib, layout: (ctx) => layout(ctx) };
 })();

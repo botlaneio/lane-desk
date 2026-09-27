@@ -75,3 +75,31 @@ Renders go to `out/`, which is ignored by git.
 - Rendering takes about 0.25–0.5 s per frame with motion blur in headless software Chromium, so about 4–7 minutes for the full film.
 - Depth comes from scale and motion, not canvas blur filters. `ctx.filter = blur()` is very slow in software Chromium.
 - A fine film grain is added to every frame. It keeps H.264 from banding on the flat paper and ink fields.
+
+---
+
+# Lane Desk explainer (60s, with voiceover)
+
+`explainer/` builds a 60-second explainer from the same engine. The film's world, dot and scenes play through a **time map** that holds and slows the film, so every beat lands on the word that names it:
+
+- **VERIFIED** stamps on "matches".
+- The draft is struck through on "discount".
+- **HELD** lands on "held".
+
+New scenes cover what the film doesn't say.
+
+| Time | Voice | Picture |
+|---|---|---|
+| 0–8.6 | *Every day, your customers ask the same things on WhatsApp…* | A WhatsApp inbox fills up. The marker circles every "Where's my order?". "by hand." A push into the last message match-cuts into the film's hook. |
+| 8.6–15 | *Lane Desk is a managed WhatsApp support desk for Indian online stores.* | The **?** loses its dot, the dot lands on the lane, and the product is named. |
+| 15–23.5 | *Every message takes one of five routes…* | The five routes. The marker picks ORDER STATUS, the order card opens, and VERIFIED lands. |
+| 23.5–32.4 | *When AI drafts a reply, the reply guard checks it…* | Into the guard. CHECKING AGAINST YOUR POLICY, the strike-through, then HELD. |
+| 32.4–38.7 | *And when it's hard, a person takes over…* | The light opens onto the owner's card. |
+| 38.7–45.2 | *You don't set up a bot. BotLane connects your store…* | The whole system, with BotLane's marker notes: connected on one call, policy wording written with you, reviewed every week. |
+| 45.2–52.9 | *Start with a pilot, at ₹6,999 a month.* | Everything folds into the mark, whose ink plate opens into the site's ink band: the price, the launch offer and the one orange button. |
+| 52.9–60 | *Lane Desk. Fast answers, safe answers, and a human when it matters.* | Logo lockup, the tagline word by word with the voice, and TALK TO US · BOTLANE.IN/CONTACT. |
+
+- **Voice:** `explainer/script.json` holds the script, and `explainer/voice.py` generates it with the open-source Kokoro model (Apache-2.0, runs locally). Every line was checked with speech recognition, and the final mix matches the script at 99%. To use ElevenLabs or a recorded voice, replace `out/vo/<id>.wav` and re-run `align.py`; the picture retimes to the new word times.
+- **Music:** `explainer/score.py` uses the film's instruments and key, arranged on the explainer's section times. It cuts hard into the guard, lifts on the light, drops the drums as the lanes converge, and resolves on the mark.
+- **Mix:** `explainer/mix.py` lets the voice lead. The music ducks about 9 dB and the effects about 8 dB while the voice speaks. Mastering is the same as the film: −14 LUFS, −2 dBTP, re-measured after AAC.
+- **Build:** run `explainer/build.sh`.

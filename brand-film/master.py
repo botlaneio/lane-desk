@@ -34,11 +34,11 @@ def ebur128(path):
     return integ, peak
 
 
-def main(wav, video, out):
+def encode(wav, video, out, tp):
     m = loudnorm_measure(wav)
     norm = out.replace(".mp4", "-audio.wav")
     af = (
-        f"loudnorm=I={I}:TP={TP}:LRA={LRA}:linear=true:"
+        f"loudnorm=I={I}:TP={tp}:LRA={LRA}:linear=true:"
         f"measured_I={m['input_i']}:measured_TP={m['input_tp']}:measured_LRA={m['input_lra']}:"
         f"measured_thresh={m['input_thresh']}:offset={m['target_offset']},aresample=48000"
     )
@@ -48,7 +48,17 @@ def main(wav, video, out):
          "-c:v", "copy", "-c:a", "aac", "-b:a", "320k", "-shortest", "-movflags", "+faststart", out],
         check=True,
     )
-    integ, peak = ebur128(out)
+    return ebur128(out)
+
+
+def main(wav, video, out):
+    # AAC encoding can push peaks up; if the encoded file overshoots, master again with that much headroom
+    tp = TP
+    for _ in range(3):
+        integ, peak = encode(wav, video, out, tp)
+        if peak <= TP + 0.05:
+            break
+        tp -= peak - TP + 0.2
     print(f"final AAC: {integ:.1f} LUFS integrated, {peak:.1f} dBTP true peak (targets {I}, {TP})")
     return integ, peak
 

@@ -1,0 +1,34 @@
+[
+ {
+  "id": "problem",
+  "text": "Every day, your customers ask the same things on WhatsApp. Where's my order? Can I return this? And every answer comes from you, by hand."
+ },
+ {
+  "id": "intro",
+  "text": "Lane Desk is a managed WhatsApp support desk for Indian online stores."
+ },
+ {
+  "id": "routes",
+  "text": "Every message takes one of five routes. Order questions are answered straight from your store, only after the customer's number matches the order."
+ },
+ {
+  "id": "guard",
+  "text": "When AI drafts a reply, the reply guard checks it against your policy first. If it promises a discount you don't offer, it's held."
+ },
+ {
+  "id": "handoff",
+  "text": "And when it's hard, a person takes over, with the full chat, so no one has to repeat themselves."
+ },
+ {
+  "id": "service",
+  "text": "You don't set up a bot. Bot Lane connects your store, writes the policy wording with you, and reviews every week."
+ },
+ {
+  "id": "pilot",
+  "text": "Start with a pilot, at six thousand, nine hundred and ninety-nine rupees a month."
+ },
+ {
+  "id": "close",
+  "text": "Lane Desk. Fast answers, safe answers, and a human when it matters."
+ }
+]

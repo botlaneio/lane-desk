@@ -1,6 +1,7 @@
 """Render stills at given times and tile them into a labelled contact sheet.
 
     python3 stills.py out/sheet.png 0 0.3 0.8 1.2 ...
+    python3 stills.py --page explainer/index.html out/sheet.png 5 20 40
 """
 import base64
 import pathlib
@@ -14,8 +15,13 @@ CHROME = os.environ.get("CHROME", "/opt/pw-browsers/chromium-1194/chrome-linux/c
 
 
 def main():
-    dest = pathlib.Path(sys.argv[1])
-    times = [float(x) for x in sys.argv[2:]]
+    args = sys.argv[1:]
+    page_path = HERE / "index.html"
+    if args[0] == "--page":
+        page_path = pathlib.Path(args[1]).resolve()
+        args = args[2:]
+    dest = pathlib.Path(args[0])
+    times = [float(x) for x in args[1:]]
     dest.parent.mkdir(parents=True, exist_ok=True)
     frames = []
     with sync_playwright() as p:
@@ -23,7 +29,7 @@ def main():
         page = b.new_page(viewport={"width": 1920, "height": 1080})
         page.on("console", lambda m: print("console:", m.text))
         page.on("pageerror", lambda e: print("pageerror:", e))
-        page.goto((HERE / "index.html").as_uri())
+        page.goto(page_path.as_uri())
         page.evaluate("window.ready")
         for t in times:
             page.evaluate(f"renderFrame({round(t * 60)}, 1)")

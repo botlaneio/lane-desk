@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Lane Desk explainer</title>
+<style>
+  @font-face { font-family: "Inter"; font-weight: 500; src: url(../fonts/inter-latin-500-normal.woff2) format("woff2"); }
+  @font-face { font-family: "Inter"; font-weight: 600; src: url(../fonts/inter-latin-600-normal.woff2) format("woff2"); }
+  @font-face { font-family: "Inter"; font-weight: 700; src: url(../fonts/inter-latin-700-normal.woff2) format("woff2"); }
+  /* the rupee sign lives in Inter's latin-ext subset */
+  @font-face { font-family: "Inter"; font-weight: 500; src: url(../fonts/inter-latin-ext-500-normal.woff2) format("woff2"); unicode-range: U+20A0-20C0; }
+  @font-face { font-family: "Inter"; font-weight: 700; src: url(../fonts/inter-latin-ext-700-normal.woff2) format("woff2"); unicode-range: U+20A0-20C0; }
+  @font-face { font-family: "JetBrains Mono"; font-weight: 500; src: url(../fonts/jetbrains-mono-latin-500-normal.woff2) format("woff2"); }
+  html, body { margin: 0; background: #111; }
+  canvas { display: block; width: 100vw; height: auto; }
+</style>
+</head>
+<body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<script src="../film.js"></script>
+<script src="timing.js"></script>
+<script src="explainer.js"></script>
+<script>
+  // Harness. ?t=20 shows one frame; ?play loops the piece (no audio); render.py calls renderFrame().
+  const out = document.getElementById("c");
+  const W = out.width, H = out.height;
+  const octx = out.getContext("2d");
+  const sub = document.createElement("canvas");
+  sub.width = W; sub.height = H;
+  const sctx = sub.getContext("2d");
+
+  window.ready = Promise.all([
+    document.fonts.load('500 20px "Inter"'),
+    document.fonts.load('600 20px "Inter"'),
+    document.fonts.load('700 20px "Inter"'),
+    document.fonts.load('700 20px "Inter"', "₹"),
+    document.fonts.load('500 20px "Inter"', "₹"),
+    document.fonts.load('500 20px "JetBrains Mono"'),
+  ]).then(() => true);
+
+  window.renderFrame = (f, samples = 5) => {
+    const t = f / PIECE.FPS;
+    const shutter = 0.5 / PIECE.FPS;
+    if (samples > 1) samples = Math.max(samples, PIECE.samplesAt(t));
+    octx.setTransform(1, 0, 0, 1, 0, 0);
+    octx.globalAlpha = 1;
+    for (let i = 0; i < samples; i++) {
+      const ts = samples === 1 ? t : t - shutter / 2 + (shutter * (i + 0.5)) / samples;
+      PIECE.render(sctx, Math.max(0, Math.min(PIECE.DUR - 1e-4, ts)), W, H);
+      octx.globalAlpha = 1 / (i + 1);
+      octx.drawImage(sub, 0, 0);
+    }
+    octx.globalAlpha = 1;
+    FILM.finish(octx, t, W, H);
+    return true;
+  };
+  window.grab = () => out.toDataURL("image/png");
+  window.cues = () => ({ sfx: PIECE.cues(), voice: PIECE.voice(), sections: PIECE.sections() });
+
+  window.ready.then(() => {
+    const q = new URLSearchParams(location.search);
+    if (q.has("t")) renderFrame(Math.round(parseFloat(q.get("t")) * PIECE.FPS), 1);
+    if (q.has("play")) {
+      const t0 = performance.now();
+      const loop = () => {
+        const t = ((performance.now() - t0) / 1000) % PIECE.DUR;
+        renderFrame(Math.floor(t * PIECE.FPS), 1);
+        requestAnimationFrame(loop);
+      };
+      loop();
+    }
+  });
+</script>
+</body>
+</html>

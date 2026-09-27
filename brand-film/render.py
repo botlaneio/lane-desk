@@ -39,16 +39,17 @@ def main():
     ap.add_argument("--to", dest="t1", type=float, default=None)
     ap.add_argument("--samples", type=int, default=5)
     ap.add_argument("--cues")
+    ap.add_argument("--page", default=str(HERE / "index.html"), help="harness page (explainer/index.html for the explainer)")
     a = ap.parse_args()
 
     with sync_playwright() as p:
         b = p.chromium.launch(executable_path=CHROME, args=["--allow-file-access-from-files"])
         page = b.new_page(viewport={"width": 1920, "height": 1080})
         page.on("pageerror", lambda e: print("pageerror:", e, file=sys.stderr))
-        page.goto((HERE / "index.html").as_uri())
+        page.goto(pathlib.Path(a.page).resolve().as_uri())
         page.evaluate("window.ready")
-        dur = page.evaluate("FILM.DUR")
-        fps = page.evaluate("FILM.FPS")
+        dur = page.evaluate("(window.PIECE || FILM).DUR")
+        fps = page.evaluate("(window.PIECE || FILM).FPS")
 
         if a.cues:
             page.evaluate("renderFrame(0, 1)")
@@ -62,7 +63,7 @@ def main():
         out = pathlib.Path(a.out)
         out.parent.mkdir(parents=True, exist_ok=True)
         cmd = [
-            ffmpeg_bin(), "-y", "-loglevel", "error",
+            ffmpeg_bin(), "-nostdin", "-y", "-loglevel", "error",
             "-f", "image2pipe", "-framerate", str(fps), "-c:v", "png", "-i", "-",
             "-c:v", "libx264", "-preset", "slow", "-crf", "14", "-pix_fmt", "yuv420p",
             "-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709",
