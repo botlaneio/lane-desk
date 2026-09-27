@@ -1,9 +1,9 @@
 import { Bubble, FlowCard } from "@/components/chat";
+import { CONTACT, External } from "@/components/external";
+import { Footer } from "@/components/footer";
 import { Logo, LogoMark } from "@/components/logo";
 import { Reveal } from "@/components/reveal";
 import { RouteCycler, type Route } from "@/components/route-cycler";
-
-const CONTACT = "https://botlane.in/contact";
 
 const NAV = [
   { href: "#how-it-works", label: "How it works" },
@@ -84,24 +84,6 @@ const INCLUDED = [
   "A weekly review of held replies and handoffs with BotLane",
   "A weekly WhatsApp report",
 ];
-
-function External({
-  href,
-  className,
-  children,
-}: {
-  href: string;
-  className?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
-      {children}
-      <span aria-hidden="true">↗</span>
-      <span className="sr-only"> (opens in a new tab)</span>
-    </a>
-  );
-}
 
 function Eyebrow({ children, onInk = false }: { children: React.ReactNode; onInk?: boolean }) {
   return <p className={`t-eyebrow ${onInk ? "text-on-ink-2" : ""}`}>{children}</p>;
@@ -569,38 +551,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="border-t border-hairline bg-surface">
-        <div className="container-page grid gap-10 py-12 md:grid-cols-2">
-          <div>
-            <Logo />
-            <p className="mt-4 max-w-[22rem] text-[15px] text-ink-2">
-              Managed support. Verified answers. A person when it matters.
-            </p>
-          </div>
-          <nav aria-label="Footer">
-            <ul className="flex flex-wrap gap-x-6 gap-y-3 md:justify-end">
-              {NAV.map((l) => (
-                <li key={l.href}>
-                  <a href={l.href} className="link text-[15px]">
-                    {l.label}
-                  </a>
-                </li>
-              ))}
-              <li>
-                <External href={CONTACT} className="link text-[15px]">
-                  Contact
-                </External>
-              </li>
-            </ul>
-          </nav>
-        </div>
-        <div className="border-t border-hairline">
-          <div className="container-page flex flex-col gap-2 py-5 font-mono text-[12px] font-medium tracking-[0.04em] text-ink-2 sm:flex-row sm:justify-between">
-            <p>© {new Date().getFullYear()} BotLane LLC</p>
-            <p>PRIVATE · MANAGED · HUMAN-CONTROLLED</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }
