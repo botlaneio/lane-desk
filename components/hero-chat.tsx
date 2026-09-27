@@ -73,7 +73,7 @@ export function HeroChat() {
   return (
     <figure
       ref={ref}
-      aria-label="Illustrative WhatsApp conversations handled by Lane Desk"
+      aria-label="Illustrative WhatsApp conversations handled by Lane Assist"
       className="overflow-hidden rounded-card border border-hairline bg-surface shadow-pop"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -126,7 +126,7 @@ export function HeroChat() {
               <i />
             </div>
             <div className="col-start-1 row-start-1 flex flex-col items-end gap-1.5">
-              <span className="sr-only">Lane Desk:</span>
+              <span className="sr-only">Lane Assist:</span>
               <p
                 className="seq max-w-[88%] rounded-[10px] rounded-tr-[3px] border border-hairline bg-surface px-3.5 py-2.5 text-[15px] leading-[1.45] shadow-card"
                 style={d(replyAt)}

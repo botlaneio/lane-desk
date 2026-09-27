@@ -11,9 +11,9 @@ const jetbrains = JetBrains_Mono({
   display: "swap",
 });
 
-const title = "Lane Desk: managed WhatsApp support for Indian online stores";
+const title = "Lane Assist: managed WhatsApp support for Indian online stores";
 const description =
-  "Lane Desk answers routine WhatsApp questions, checks every AI reply against your store policy, and hands the hard conversations to a person. Run for you by BotLane.";
+  "Lane Assist answers routine WhatsApp questions, checks every AI reply against your store policy, and hands the hard conversations to a person. Run for you by BotLane.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://botlane.in"),
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "/",
-    siteName: "Lane Desk by BotLane",
+    siteName: "Lane Assist by BotLane",
     title,
     description,
     locale: "en_IN",

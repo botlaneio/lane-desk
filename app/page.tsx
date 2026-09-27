@@ -168,7 +168,7 @@ export default function Home() {
           <div className="mt-8 grid gap-12 md:mt-10 lg:grid-cols-12 lg:gap-8">
             <div className="lg:col-span-5">
               <p className="rise max-w-[34rem] text-[18px] leading-[1.5] text-ink-2 md:text-[20px]" style={rise(4.5)}>
-                Lane Desk answers the routine WhatsApp questions, checks what it says against your store policy, and
+                Lane Assist answers the routine WhatsApp questions, checks what it says against your store policy, and
                 sends the hard conversations to a person.
               </p>
               <div className="btn-pair rise mt-8 flex flex-nowrap gap-3" style={rise(5)}>
@@ -193,7 +193,7 @@ export default function Home() {
         {/* 2 · Signal strip */}
         <section aria-labelledby="signals-title" className="border-y border-hairline bg-surface">
           <h2 id="signals-title" className="sr-only">
-            How Lane Desk behaves
+            How Lane Assist behaves
           </h2>
           <ul className="container-page grid divide-y divide-hairline md:grid-cols-3 md:divide-x md:divide-y-0">
             {[
@@ -421,7 +421,7 @@ export default function Home() {
                 You don&rsquo;t set up a bot. BotLane runs it for you.
               </h2>
               <p className="mt-4 text-[18px] text-ink-2">
-                We set Lane Desk up with you, then keep it right as your store changes.
+                We set Lane Assist up with you, then keep it right as your store changes.
               </p>
             </Reveal>
 
@@ -541,7 +541,7 @@ export default function Home() {
               <h3 className="font-mono text-[12px] font-medium tracking-[0.06em] text-on-ink-2">THE PILOT INCLUDES</h3>
               <ul className="mt-4 divide-y divide-ink-line border-y border-ink-line">
                 {[
-                  "Lane Desk on your WhatsApp Business number",
+                  "Lane Assist on your WhatsApp Business number",
                   "Order lookups after the WhatsApp number matches",
                   "Answers from your approved policy wording",
                   "The reply guard on every AI draft",

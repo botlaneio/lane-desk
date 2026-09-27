@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Lane Desk by BotLane: support that knows when to hand over.";
+export const alt = "Lane Assist by BotLane: support that knows when to hand over.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -53,7 +53,7 @@ export default function Image() {
           </div>
           <div style={{ display: "flex", fontSize: 32, gap: 12 }}>
             <span style={{ color: INK_2 }}>botLane /</span>
-            <span style={{ color: INK, fontWeight: 700 }}>Lane Desk</span>
+            <span style={{ color: INK, fontWeight: 700 }}>Lane Assist</span>
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>

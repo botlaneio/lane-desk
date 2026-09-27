@@ -47,7 +47,7 @@ export function Bubble({
       className={`flex flex-col gap-1.5 ${customer ? "items-start" : "items-end"} ${at === undefined ? "" : "seq"}`}
       style={d(at)}
     >
-      <span className="sr-only">{customer ? "Customer:" : "Lane Desk:"}</span>
+      <span className="sr-only">{customer ? "Customer:" : "Lane Assist:"}</span>
       <div
         className={`relative max-w-[88%] overflow-hidden rounded-[10px] px-3.5 py-2.5 text-[15px] leading-[1.45] ${
           customer
