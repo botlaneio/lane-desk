@@ -78,14 +78,20 @@ body {
 
 @layer components {
   .container-page {
+    --gutter: 20px;
     width: 100%;
-    max-width: calc(1200px + 2 * 24px);
+    max-width: calc(1120px + 2 * var(--gutter));
     margin-inline: auto;
-    padding-inline: 16px;
+    padding-inline: var(--gutter);
   }
   @media (min-width: 768px) {
     .container-page {
-      padding-inline: 24px;
+      --gutter: 32px;
+    }
+  }
+  @media (min-width: 1024px) {
+    .container-page {
+      --gutter: 64px;
     }
   }
 
