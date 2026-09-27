@@ -121,3 +121,5 @@ New scenes cover what the film doesn't say.
 - **Timing:** each clause is spoken whole, for natural delivery. Beat anchors are written inline as `{held}`, `{matches}` and so on. An anchor at the start of a clause is exact. One inside a clause is placed by its syllable position within the clause.
 - **Length:** about 67 seconds. The pilot scene keeps at least the English cut's length, so the launch offer can be read.
 - **Key:** the API key is read from `SARVAM_API_KEY` only and is never written to the repo. Regenerating the voice needs a key. The rest of the build doesn't.
+
+- **Voices chosen:** after listening to 14 Sarvam voices, **Varun** (male, about 76 s cut) and **Ritu** (female, about 66 s cut) were picked. Each has its own page (`explainer/index-hinglish-varun.html`, `index-hinglish-ritu.html`) and timing file, because the edit follows each voice's own pace.
