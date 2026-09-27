@@ -1,0 +1,297 @@
+@import "tailwindcss";
+
+@theme {
+  --color-*: initial;
+
+  /* surfaces */
+  --color-paper: #faf8f5;
+  --color-surface: #ffffff;
+  --color-surface-2: #f3f1ed;
+
+  /* ink */
+  --color-ink: #111111;
+  --color-ink-2: #5c5c5c;
+  --color-ink-3: #8a8a8a;
+  --color-hairline: #e7e4df;
+  --color-border: #d4d0c9;
+
+  /* the ink band: readable secondary text and dividers on ink */
+  --color-on-ink: #ffffff;
+  --color-on-ink-2: #b8b5b0;
+  --color-ink-line: #2c2b29;
+
+  /* the accent */
+  --color-orange: #ff5b1f;
+  --color-orange-press: #e8490f;
+  --color-orange-ink: #c2410c;
+  --color-orange-wash: #fff1ea;
+  --color-orange-edge: #c2410c;
+
+  /* status */
+  --color-verified: #15803d;
+  --color-verified-wash: #dcfce7;
+  --color-held: #111111;
+  --color-error: #b42318;
+
+  /* type */
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  /* shape */
+  --radius-btn: 8px;
+  --radius-input: 8px;
+  --radius-card: 12px;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-pop: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+}
+
+:root {
+  --focus-ring: 0 0 0 3px rgba(255, 91, 31, 0.35);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-orange-wash);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-orange);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: calc(1200px + 2 * 24px);
+    margin-inline: auto;
+    padding-inline: 16px;
+  }
+  @media (min-width: 768px) {
+    .container-page {
+      padding-inline: 24px;
+    }
+  }
+
+  .section {
+    padding-block: 64px;
+  }
+  @media (min-width: 768px) {
+    .section {
+      padding-block: 96px;
+    }
+  }
+
+  /* type roles */
+  .t-display {
+    font-weight: 700;
+    font-size: clamp(2.5rem, 1.1rem + 5.4vw, 5.5rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .t-heading {
+    font-weight: 600;
+    font-size: clamp(1.875rem, 1.5rem + 1.2vw, 2.5rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+  .t-sub {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.4;
+  }
+  .t-eyebrow {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.4;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-ink-2);
+  }
+  @media (min-width: 768px) {
+    .t-eyebrow {
+      font-size: 13px;
+    }
+  }
+
+  /* buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    white-space: nowrap;
+    border-radius: var(--radius-btn);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.25;
+    padding: 12px 20px;
+    border: 1px solid transparent;
+    text-decoration: none;
+    transition: transform 120ms ease-out, box-shadow 120ms ease-out;
+  }
+  .btn-sm {
+    font-size: 15px;
+    padding: 8px 14px;
+  }
+  .btn-primary {
+    background: var(--color-orange);
+    color: var(--color-ink);
+    box-shadow: 0 3px 0 var(--color-orange-edge);
+  }
+  .btn-primary:hover {
+    background: var(--color-orange-press);
+  }
+  .btn-primary:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 var(--color-orange-edge);
+  }
+  .btn-secondary {
+    background: var(--color-surface);
+    color: var(--color-ink);
+    border-color: var(--color-border);
+  }
+  .btn-secondary:hover {
+    background: var(--color-surface-2);
+  }
+  .btn-dark {
+    background: var(--color-ink);
+    color: var(--color-on-ink);
+  }
+  .btn-dark:hover {
+    transform: translateY(-1px);
+  }
+  .btn-dark:active {
+    transform: translateY(1px);
+  }
+  @media (max-width: 400px) {
+    .btn-sm {
+      font-size: 14px;
+      padding: 8px 12px;
+    }
+  }
+  /* hero pair must stay side by side down to 360px */
+  @media (max-width: 420px) {
+    .btn-pair .btn {
+      font-size: 14px;
+      padding: 10px 12px;
+    }
+  }
+
+  .link {
+    color: var(--color-ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+  .link:hover {
+    text-decoration-thickness: 2px;
+  }
+
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    padding: 24px;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 9999px;
+    padding: 3px 9px;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.4;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .chip-verified {
+    background: var(--color-verified-wash);
+    color: var(--color-verified);
+  }
+  .chip-held {
+    background: var(--color-held);
+    color: var(--color-on-ink);
+  }
+  .chip-quiet {
+    background: var(--color-surface-2);
+    color: var(--color-ink-2);
+  }
+  .chip-outline {
+    background: var(--color-surface);
+    color: var(--color-ink);
+    border: 1px solid var(--color-border);
+  }
+  .chip-planned {
+    background: transparent;
+    color: var(--color-ink-2);
+    border: 1px dashed var(--color-border);
+  }
+
+  .skip-link {
+    position: absolute;
+    left: 16px;
+    top: 12px;
+    z-index: 100;
+    transform: translateY(-200%);
+  }
+  .skip-link:focus-visible {
+    transform: none;
+  }
+}
+
+/* hero entrance: CSS so it runs before (and without) JavaScript */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise {
+  animation: rise 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--i, 0) * 80ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
