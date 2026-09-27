@@ -1512,7 +1512,7 @@
       { t: L.tBounceEnd, k: "tick", g: 0.45, p: 0.8 },
       { t: 2.3, k: "marker", g: 0.35, d: 0.3 },
       { t: T.rollStart, k: "roll", g: 0.45, d: T.forkArrive - T.rollStart },
-      ...[0, 1, 2, 3, 4].map((i) => ({ t: T.sprout + i * 0.035, k: "pluck", g: 0.45, p: 1 + i * 0.12 })),
+      ...[1, 9 / 8, 5 / 4, 3 / 2, 5 / 3].map((r, i) => ({ t: T.sprout + i * 0.035, k: "pluck", g: 0.45, p: r })),
       { t: T.forkArrive, k: "knock", g: 0.6 },
       { t: T.circle, k: "marker", g: 0.45, d: 0.26 },
       { t: T.click, k: "click", g: 0.8 },

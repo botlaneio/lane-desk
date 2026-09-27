@@ -1,4 +1,4 @@
-"""Synthesize the sound bed from the film's own cue list, then plot it.
+"""Synthesize the sound bed from the film's own cue list, optionally mix a music track under it, then plot it.
 
     python3 render.py --cues out/cues.json
     python3 audio.py out/cues.json out/bed.wav out/waveform.png
@@ -129,7 +129,7 @@ def s_roll(p, d):
 def s_pluck(p, d):
     n = int(0.45 * SR)
     t = np.arange(n) / SR
-    f = 196 * p
+    f = 220 * p  # A3 times a scale ratio, so the fork plays in the score's key
     x = np.sin(2 * np.pi * f * t) + 0.35 * np.sin(2 * np.pi * 2 * f * t) + 0.12 * np.sin(2 * np.pi * 3 * f * t)
     return x * env(n, 0.001, 0.12) * 0.32
 
@@ -250,16 +250,63 @@ ENDS_ON_EVENT = {"reverse"}
 PANS = {"whoosh": 0.3, "whip": -0.4, "tick": 0.1, "marker": -0.15, "pluck": 0.0, "roll": 0.2}
 
 
-def build(cues):
+def load_audio(path):
+    """Decode any audio file to 48 kHz stereo float with ffmpeg."""
+    import subprocess
+
+    from render import ffmpeg_bin
+
+    raw = subprocess.run(
+        [ffmpeg_bin(), "-v", "error", "-i", path, "-f", "f32le", "-ac", "2", "-ar", str(SR), "-"],
+        capture_output=True,
+        check=True,
+    ).stdout
+    return np.frombuffer(raw, "<f4").reshape(-1, 2).T.astype(np.float64)
+
+
+# hits the music ducks under, so they still land (kind: dB)
+DUCK = {"slam": 5, "drop": 6, "stamp": 4, "light": 4, "resolve": 3, "land": 3}
+
+
+def music_bed(path, cues, n):
+    m = load_audio(path)
+    # first downbeat on frame 0: trim any lead-in before the first real onset
+    mono = np.abs(m).max(axis=0)
+    onset = int(np.argmax(mono > 0.08 * mono.max()))
+    m = m[:, max(0, onset - int(0.004 * SR)) :]
+    out = np.zeros((2, n))
+    k = min(n, m.shape[1])
+    out[:, :k] = m[:, :k]
+    # sidechain-style ducking on the big visual hits (fast attack, 0.35s release)
+    g = np.ones(n)
+    for c in cues:
+        if c["k"] not in DUCK:
+            continue
+        i = int(c["t"] * SR)
+        depth = 1 - 10 ** (-DUCK[c["k"]] / 20)
+        rel = np.exp(-np.arange(int(0.6 * SR)) / (0.35 * SR / 3))
+        j = min(n, i + len(rel))
+        if i < n:
+            g[i:j] = np.minimum(g[i:j], 1 - depth * rel[: j - i])
+    return out * g
+
+
+def build(cues, music=None):
     n = int(DUR * SR)
     bus = np.zeros((2, n))
-    place(bus, drone(n), 0.0, 1.0, 0.0)
+    if music is None:
+        place(bus, drone(n), 0.0, 1.0, 0.0)  # the music replaces the drone
     for c in cues:
         k, t, g = c["k"], c["t"], c.get("g", 1.0)
         x = SOUNDS[k](c.get("p", 1.0), c.get("d"))
         if k in ENDS_ON_EVENT:
             t = t + (c.get("d") or 0.35) - len(x) / SR
         place(bus, x, t, g, PANS.get(k, 0.0))
+    if music is not None:
+        m = music_bed(music, cues, n)
+        rms = lambda x: np.sqrt(np.mean(x**2)) + 1e-9
+        # music sits a touch under the effects so every hit still reads
+        bus = bus * 0.8 + m * (0.8 * rms(bus) / rms(m)) * 0.95
     # glue: gentle soft clip, then leave the last 0.35s silent
     bus = np.tanh(bus * 1.4) / np.tanh(1.4)
     fade = np.ones(n)
@@ -310,9 +357,16 @@ def plot(path, bus, cues):
 
 
 if __name__ == "__main__":
-    cues = json.load(open(sys.argv[1]))
-    bus = build(cues)
-    write_wav(sys.argv[2], bus)
-    if len(sys.argv) > 3:
-        plot(sys.argv[3], bus, cues)
-    print("wrote", sys.argv[2])
+    # python3 audio.py cues.json out.wav [waveform.png] [--music track.mp3]
+    args = sys.argv[1:]
+    music = None
+    if "--music" in args:
+        i = args.index("--music")
+        music = args[i + 1]
+        del args[i : i + 2]
+    cues = json.load(open(args[0]))
+    bus = build(cues, music)
+    write_wav(args[1], bus)
+    if len(args) > 2:
+        plot(args[2], bus, cues)
+    print("wrote", args[1])

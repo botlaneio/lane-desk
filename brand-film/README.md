@@ -58,6 +58,8 @@ open index.html?play                               # live preview (index.html?t=
 - `film.js` is the whole film: one pure `render(ctx, t)`. Nothing reads a clock, so any frame renders on its own and seeking is exact. All beat times are in the `T` table, and all camera moves are in `buildCam()`.
 - `render.py` renders 1920×1080 at 60fps. Each frame is five sub-frames averaged over a 180° shutter for motion blur. It encodes with libx264 (CRF 14, yuv420p, bt709, faststart).
 - `audio.py` synthesizes every sound from the film's own cue list (`FILM.cues()`), so a retimed beat moves its sound with it. It also writes `out/waveform.png`, which shows the waveform with every cue marked, to check placement.
+- `score.py` is the music: 15 seconds in A major at 120 BPM, written against the picture. The slam lands on beat 0, and the drop into the guard at 7.0 s lands on beat 14, where every tail is choked for a hard cut. The light at 9.25 s is a pushed downbeat, and the drums drop out at 11.5 s as the lanes converge. A warm A major resolve lands with the mark at 12.05 s, and a three-note pluck signature plays under the tagline. The voices are Karplus-Strong plucks, a saw pad, a sub-bass and synthesized drums.
+- To use a different track, pass `--music any.wav|mp3` to `audio.py`. The track is trimmed so its first onset lands on frame 0, levelled under the effects, and ducked on the big hits.
 - `master.py` runs two-pass `loudnorm` to −14 LUFS integrated and −2 dBTP true peak, muxes AAC 320k, and **re-measures the final AAC file**.
 
 Renders go to `out/`, which is ignored by git.
@@ -65,7 +67,7 @@ Renders go to `out/`, which is ignored by git.
 ## Assets and licences
 
 - **Fonts:** Inter and JetBrains Mono (SIL Open Font License 1.1), from the `@fontsource/inter` and `@fontsource/jetbrains-mono` npm packages. They're the same families the site loads through `next/font`. Licences are in `fonts/`.
-- **Audio:** synthesized in `audio.py`. No samples or third-party sounds.
+- **Audio:** the effects (`audio.py`) and the music (`score.py`) are both synthesized. No samples or third-party sounds are used, so there are no licensing restrictions.
 - **Imagery:** none. Everything is drawn in code.
 
 ## Performance
