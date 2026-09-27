@@ -12,7 +12,7 @@ export function External({
   return (
     <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
       {children}
-      <span aria-hidden="true">↗</span>
+      <span aria-hidden="true" className="ext-arrow">↗</span>
       <span className="sr-only"> (opens in a new tab)</span>
     </a>
   );

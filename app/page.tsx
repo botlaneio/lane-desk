@@ -1,7 +1,9 @@
 import { Bubble, FlowCard } from "@/components/chat";
 import { CONTACT, External } from "@/components/external";
 import { Footer } from "@/components/footer";
+import { HeroChat } from "@/components/hero-chat";
 import { Logo, LogoMark } from "@/components/logo";
+import { Replay } from "@/components/replay";
 import { Reveal } from "@/components/reveal";
 import { RouteCycler, type Route } from "@/components/route-cycler";
 
@@ -106,11 +108,14 @@ function Check({ onInk = false }: { onInk?: boolean }) {
   );
 }
 
-function Arrow() {
+function Arrow({ delay }: { delay: number }) {
+  const style = { "--d": `${delay}ms` } as React.CSSProperties;
   return (
-    <span aria-hidden="true" className="flex items-center justify-center font-mono text-[18px] text-ink-2">
-      <span className="md:hidden">↓</span>
-      <span className="hidden md:inline">→</span>
+    <span aria-hidden="true" className="flex items-center justify-center py-1 md:py-0">
+      <span className="relative flex h-6 w-px items-center justify-center bg-border md:h-px md:w-8">
+        <span className="flow-dot-y absolute size-1.5 rounded-full bg-ink md:hidden" style={style} />
+        <span className="flow-dot absolute hidden size-1.5 rounded-full bg-ink md:block" style={style} />
+      </span>
     </span>
   );
 }
@@ -146,17 +151,27 @@ export default function Home() {
           <p className="t-eyebrow rise" style={rise(0)}>
             LANE / 01 · MANAGED SUPPORT
           </p>
-          <h1 id="hero-title" className="t-display rise mt-5 max-w-[18ch]" style={rise(1)}>
-            <span className="md:block">Support that knows</span> <span className="md:block">when to hand over.</span>
+          <h1 id="hero-title" className="t-display mt-5 max-w-[18ch]">
+            {[["Support", "that", "knows"], ["when", "to", "hand", "over."]].map((line, l) => (
+              <span key={l} className="md:block">
+                {line.map((w, k) => (
+                  <span key={w}>
+                    <span className="rise inline-block" style={rise(1 + (l * 3 + k) * 0.5)}>
+                      {w}
+                    </span>{" "}
+                  </span>
+                ))}
+              </span>
+            ))}
           </h1>
 
           <div className="mt-8 grid gap-12 md:mt-10 lg:grid-cols-12 lg:gap-8">
             <div className="lg:col-span-5">
-              <p className="rise max-w-[34rem] text-[18px] leading-[1.5] text-ink-2 md:text-[20px]" style={rise(2)}>
+              <p className="rise max-w-[34rem] text-[18px] leading-[1.5] text-ink-2 md:text-[20px]" style={rise(4.5)}>
                 Lane Desk answers the routine WhatsApp questions, checks what it says against your store policy, and
                 sends the hard conversations to a person.
               </p>
-              <div className="btn-pair rise mt-8 flex flex-nowrap gap-3" style={rise(3)}>
+              <div className="btn-pair rise mt-8 flex flex-nowrap gap-3" style={rise(5)}>
                 <External href={CONTACT} className="btn btn-primary">
                   Talk to us
                 </External>
@@ -164,31 +179,13 @@ export default function Home() {
                   See how it works
                 </a>
               </div>
-              <p className="rise mt-8 font-mono text-[12px] font-medium tracking-[0.04em] text-ink-2" style={rise(4)}>
+              <p className="rise mt-8 font-mono text-[12px] font-medium tracking-[0.04em] text-ink-2" style={rise(5.5)}>
                 FOR SHOPIFY AND WOOCOMMERCE STORES IN INDIA
               </p>
             </div>
 
-            <div className="rise lg:col-span-6 lg:col-start-7" style={rise(4)}>
-              <FlowCard title="Order status">
-                <Bubble from="customer">Hi, where&rsquo;s my order? It&rsquo;s #1042</Bubble>
-                <Bubble
-                  from="desk"
-                  meta={
-                    <>
-                      <span className="chip chip-verified">
-                        <span aria-hidden="true">✓</span> Verified
-                      </span>
-                      <span className="font-mono text-[11px] font-medium tracking-[0.04em] text-ink-2">
-                        NUMBER MATCHED · NO LLM
-                      </span>
-                    </>
-                  }
-                >
-                  Hi Priya, order #1042 left our warehouse on 14 Oct with Delhivery. Expected delivery: 17 Oct.
-                  Tracking number: 2831 0047 5519.
-                </Bubble>
-              </FlowCard>
+            <div className="rise lg:col-span-6 lg:col-start-7" style={rise(5)}>
+              <HeroChat />
             </div>
           </div>
         </section>
@@ -237,7 +234,7 @@ export default function Home() {
                   <h3 className="mt-2 text-[20px] font-semibold tracking-[-0.01em]">{t}</h3>
                   <p className="mt-1.5 text-[15px] text-ink-2">{d}</p>
                 </div>
-                {i < arr.length - 1 ? <Arrow /> : null}
+                {i < arr.length - 1 ? <Arrow delay={i * 900} /> : null}
               </div>
             ))}
           </Reveal>
@@ -277,48 +274,67 @@ export default function Home() {
               </ul>
             </Reveal>
 
-            <Reveal className="grid gap-5 sm:grid-cols-2 lg:col-span-7" delay={0.08}>
-              <FlowCard title="Draft held">
-                <Bubble from="customer">My order came late. Can I get something off?</Bubble>
-                <Bubble
-                  from="desk"
-                  meta={
-                    <>
-                      <span className="chip chip-held">Held</span>
-                      <span className="text-[13px] font-medium text-ink-2">
-                        Discount not in store policy. Sent to a person.
+            <Reveal className="lg:col-span-7" delay={0.08}>
+              <Replay className="grid gap-5 sm:grid-cols-2" every={9000}>
+                <FlowCard title="Draft held">
+                  <Bubble from="customer" at={0}>
+                    My order came late. Can I get something off?
+                  </Bubble>
+                  <Bubble
+                    from="desk"
+                    at={500}
+                    scanAt={1000}
+                    metaAt={2000}
+                    meta={
+                      <>
+                        <span className="chip chip-held">Held</span>
+                        <span className="text-[13px] font-medium text-ink-2">
+                          Discount not in store policy. Sent to a person.
+                        </span>
+                      </>
+                    }
+                  >
+                    <span className="mb-1 block font-mono text-[11px] font-medium tracking-[0.04em] text-ink-2">
+                      AI DRAFT · NOT SENT
+                    </span>
+                    <span className="relative block">
+                      <span className="text-ink-2">So sorry! Here&rsquo;s 20% off your next order.</span>
+                      <span
+                        aria-hidden="true"
+                        className="fade absolute inset-0 text-transparent line-through decoration-ink decoration-[1.5px]"
+                        style={{ "--d": "1900ms" } as React.CSSProperties}
+                      >
+                        So sorry! Here&rsquo;s 20% off your next order.
                       </span>
-                    </>
-                  }
-                >
-                  <span className="mb-1 block font-mono text-[11px] font-medium tracking-[0.04em] text-ink-2">
-                    AI DRAFT · NOT SENT
-                  </span>
-                  <span className="line-through decoration-ink-2">
-                    So sorry! Here&rsquo;s 20% off your next order.
-                  </span>
-                </Bubble>
-              </FlowCard>
+                    </span>
+                  </Bubble>
+                </FlowCard>
 
-              <FlowCard title="Draft passed">
-                <Bubble from="customer">Can I return these? They arrived 5 days ago.</Bubble>
-                <Bubble
-                  from="desk"
-                  meta={
-                    <>
-                      <span className="chip chip-verified">
-                        <span aria-hidden="true">✓</span> Verified
-                      </span>
-                      <span className="text-[13px] font-medium text-ink-2">Matches policy. Days counted in code.</span>
-                    </>
-                  }
-                >
-                  <span className="mb-1 block font-mono text-[11px] font-medium tracking-[0.04em] text-ink-2">
-                    AI DRAFT · SENT
-                  </span>
-                  Yes. Returns are open for 7 days from delivery, so you have 2 days left. Reply RETURN to start.
-                </Bubble>
-              </FlowCard>
+                <FlowCard title="Draft passed">
+                  <Bubble from="customer" at={200}>
+                    Can I return these? They arrived 5 days ago.
+                  </Bubble>
+                  <Bubble
+                    from="desk"
+                    at={700}
+                    scanAt={1200}
+                    metaAt={2100}
+                    meta={
+                      <>
+                        <span className="chip chip-verified">
+                          <span aria-hidden="true">✓</span> Verified
+                        </span>
+                        <span className="text-[13px] font-medium text-ink-2">Matches policy. Days counted in code.</span>
+                      </>
+                    }
+                  >
+                    <span className="mb-1 block font-mono text-[11px] font-medium tracking-[0.04em] text-ink-2">
+                      AI DRAFT · SENT
+                    </span>
+                    Yes. Returns are open for 7 days from delivery, so you have 2 days left. Reply RETURN to start.
+                  </Bubble>
+                </FlowCard>
+              </Replay>
             </Reveal>
           </div>
         </section>
@@ -362,10 +378,15 @@ export default function Home() {
             </Reveal>
 
             <Reveal className="lg:col-span-6 lg:col-start-7" delay={0.08}>
+              <Replay every={9000}>
               <FlowCard title="Handoff to the owner">
-                <Bubble from="customer">This is the second wrong item. I want to speak to someone.</Bubble>
+                <Bubble from="customer" at={0}>
+                  This is the second wrong item. I want to speak to someone.
+                </Bubble>
                 <Bubble
                   from="desk"
+                  at={800}
+                  metaAt={1300}
                   meta={
                     <span className="font-mono text-[11px] font-medium tracking-[0.04em] text-ink-2">
                       FIXED MESSAGE · NO LLM
@@ -375,7 +396,10 @@ export default function Home() {
                   I&rsquo;m sorry about this. I&rsquo;ve passed your chat to the store team. They can see everything
                   you&rsquo;ve sent, so you won&rsquo;t need to repeat it.
                 </Bubble>
-                <div className="mt-2 rounded-[10px] border border-hairline bg-surface p-4">
+                <div
+                  className="seq mt-2 rounded-[10px] border border-hairline bg-surface p-4"
+                  style={{ "--d": "2000ms" } as React.CSSProperties}
+                >
                   <p className="font-mono text-[11px] font-medium tracking-[0.04em] text-ink-2">
                     TO THE OWNER · WHATSAPP
                   </p>
@@ -383,6 +407,7 @@ export default function Home() {
                   <p className="mt-1 text-[14px] text-ink-2">Order #1187 · 6 messages · full chat attached</p>
                 </div>
               </FlowCard>
+              </Replay>
             </Reveal>
           </div>
         </section>
@@ -410,7 +435,7 @@ export default function Home() {
                 ["Reviewed every week", "We go through held replies and handoffs every week."],
                 ["Kept current", "We update things when your catalogue, policy or sale season changes."],
               ].map(([t, d], i) => (
-                <div key={t} className="card flex flex-col bg-paper shadow-none">
+                <div key={t} className="card lift flex flex-col bg-paper shadow-none">
                   <span className="font-mono text-[12px] font-medium text-ink-2">0{i + 1}</span>
                   <h3 className="mt-6 text-[18px] font-semibold tracking-[-0.01em]">{t}</h3>
                   <p className="mt-2 text-[15px] text-ink-2">{d}</p>
@@ -453,7 +478,7 @@ export default function Home() {
 
           <Reveal className="mt-10 grid gap-4 lg:grid-cols-3">
             {PACKAGES.map((p) => (
-              <div key={p.name} className="card flex flex-col">
+              <div key={p.name} className="card lift flex flex-col">
                 <h3 className="text-[18px] font-semibold">{p.name}</h3>
                 <p className="mt-1 text-[15px] text-ink-2">{p.channels}</p>
                 <p className="mt-6 flex items-baseline gap-1.5">

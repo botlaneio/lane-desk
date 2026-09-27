@@ -19,11 +19,13 @@ export function RouteCycler({ routes }: { routes: Route[] }) {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
 
+  const cycling = inView && !reduce && !paused;
+
   useEffect(() => {
-    if (!inView || reduce || paused) return;
+    if (!cycling) return;
     const t = setInterval(() => setActive((i) => (i + 1) % routes.length), STEP_MS);
     return () => clearInterval(t);
-  }, [inView, reduce, paused, routes.length]);
+  }, [cycling, routes.length]);
 
   return (
     <ol
@@ -50,6 +52,16 @@ export function RouteCycler({ routes }: { routes: Route[] }) {
               animate={{ opacity: isActive ? 1 : 0 }}
               transition={{ duration: 0.35, ease: "easeOut" }}
             />
+            {isActive && cycling ? (
+              <motion.span
+                key={active}
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-3 bottom-2 h-0.5 origin-left rounded-full bg-orange"
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: STEP_MS / 1000, ease: "linear" }}
+              />
+            ) : null}
             <div className="relative flex items-center justify-between gap-2">
               <span className="font-mono text-[12px] font-medium text-ink-2">
                 {String(i + 1).padStart(2, "0")}
