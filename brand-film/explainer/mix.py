@@ -32,7 +32,10 @@ def envelope(x, attack=0.03, release=0.35):
 
 
 def main(cue_path, vo_dir, music_path, out_path):
+    global DUR, N
     cues = json.load(open(cue_path))
+    DUR = float(cues["sections"].get("DUR", 60.0))
+    N = int(DUR * SR)
     vo_dir = pathlib.Path(vo_dir)
 
     # voice: each line at its scheduled time, levelled line by line

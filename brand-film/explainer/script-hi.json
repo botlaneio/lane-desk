@@ -1,0 +1,57 @@
+[
+ {"id": "problem", "segments": [
+  {"text": "हर दिन,", "anchor": "every"},
+  {"text": "आपके ग्राहक व्हाट्सऐप पर"},
+  {"text": "वही", "anchor": "the", "gap": 0.03},
+  {"text": "सवाल पूछते हैं।", "anchor": "things", "gap": 0.03},
+  {"text": "मेरा ऑर्डर कहाँ है?", "anchor": "where"},
+  {"text": "क्या मैं इसे वापस कर सकता हूँ?", "anchor": "return"},
+  {"text": "और हर जवाब,", "anchor": "and"},
+  {"text": "आप खुद देते हैं,", "anchor": "from"},
+  {"text": "हाथ से।", "anchor": "hand", "gap": 0.05}
+ ]},
+ {"id": "intro", "segments": [
+  {"text": "लेन डेस्क,", "anchor": "lane"},
+  {"text": "एक व्हाट्सऐप सपोर्ट डेस्क है, जिसे हम आपके लिए चलाते हैं,", "anchor": "managed"},
+  {"text": "भारत के ऑनलाइन स्टोर्स के लिए।", "anchor": "indian"}
+ ]},
+ {"id": "routes", "segments": [
+  {"text": "हर मैसेज, पाँच में से एक रास्ता लेता है।", "anchor": "every"},
+  {"text": "ऑर्डर के सवालों का जवाब सीधे आपके स्टोर से आता है,", "anchor": "order"},
+  {"text": "लेकिन तभी, जब ग्राहक का नंबर", "anchor": "number"},
+  {"text": "ऑर्डर से मिलता हो।", "anchor": "matches", "gap": 0.04}
+ ]},
+ {"id": "guard", "segments": [
+  {"text": "जब एआई कोई जवाब लिखता है,", "anchor": "when"},
+  {"text": "तो पहले उसे आपकी पॉलिसी से जाँचा जाता है।", "anchor": "reply"},
+  {"text": "अगर उसमें ऐसी", "anchor": "if"},
+  {"text": "छूट का वादा हो, जो आप देते ही नहीं,", "anchor": "discount", "gap": 0.03},
+  {"text": "तो वो जवाब", "anchor": "then"},
+  {"text": "रोक दिया जाता है।", "anchor": "held", "gap": 0.03}
+ ]},
+ {"id": "handoff", "segments": [
+  {"text": "और जब मामला मुश्किल हो,", "anchor": "hard"},
+  {"text": "तो एक इंसान बात संभाल लेता है,", "anchor": "person"},
+  {"text": "पूरी चैट के साथ,", "anchor": "chat"},
+  {"text": "ताकि किसी को कुछ दोहराना न पड़े।", "anchor": "repeat"}
+ ]},
+ {"id": "service", "segments": [
+  {"text": "आपको कोई बॉट नहीं बनाना है।", "anchor": "bot0"},
+  {"text": "बॉटलेन", "anchor": "botlane"},
+  {"text": "आपका स्टोर जोड़ता है,", "anchor": "connects", "gap": 0.04},
+  {"text": "आपके साथ पॉलिसी लिखता है,", "anchor": "policy"},
+  {"text": "और हर हफ़्ते सब कुछ जाँचता है।", "anchor": "reviews"}
+ ]},
+ {"id": "pilot", "segments": [
+  {"text": "शुरुआत एक पायलट से करें,", "anchor": "start"},
+  {"text": "सिर्फ़ छह हज़ार नौ सौ निन्यानवे", "anchor": "6"},
+  {"text": "रुपये", "anchor": "rupees", "gap": 0.04},
+  {"text": "महीने में।", "anchor": "month", "gap": 0.03}
+ ]},
+ {"id": "close", "segments": [
+  {"text": "लेन डेस्क।", "anchor": "lane"},
+  {"text": "तेज़ जवाब, सुरक्षित जवाब,", "anchor": "fast"},
+  {"text": "और जब ज़रूरत हो,", "anchor": "when"},
+  {"text": "एक इंसान।", "anchor": "matters", "gap": 0.05}
+ ]}
+]

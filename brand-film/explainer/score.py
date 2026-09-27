@@ -15,7 +15,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 import score as S  # noqa: E402
 from audio import SR, write_wav  # noqa: E402
 
-DUR = 60.0
+DUR = 60.0  # replaced by the piece length from the cue file
 N = int(DUR * SR)
 B = S.B
 
@@ -162,5 +162,7 @@ def compose(sec):
 
 if __name__ == "__main__":
     sec = json.load(open(sys.argv[1]))["sections"]
+    DUR = float(sec.get("DUR", 60.0))
+    N = int(DUR * SR)
     write_wav(sys.argv[2], compose(sec))
     print("wrote", sys.argv[2])

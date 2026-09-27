@@ -16,7 +16,6 @@
   const X = F.lib;
   const { C, SANS, MONO, E, clamp, lerp, prog, spring, hash, noise, font, rrect, chip, marker, dot, arrowPath, L, T } = X;
   const { LANE_Y, X_F, X_G, LC, OV, MS, MX, MY } = X.W;
-  const DUR = 60;
   const FPS = 60;
   const VT = window.VO_TIMING;
 
@@ -24,7 +23,14 @@
   Object.assign(T, { circle: 3.9, click: 4.12, shoot: 4.18, card: 4.72, verified: 5.7 });
 
   // ---------------------------------------------------------------- voiceover schedule
-  const VO = { problem: 0.4, intro: 10.3, routes: 15.2, guard: 24.3, handoff: 32.6, service: 38.8, pilot: 46.9, close: 53.6 };
+  // Each section waits for the previous line to finish, so a longer voice (Hindi, a slower take)
+  // stretches the edit instead of overlapping. With the English voice this gives the original 60 s cut.
+  const LEN = VT.lengths;
+  const VO = { problem: 0.4 };
+  const HOOK = Math.max(8.6, VO.problem + LEN.problem + 0.25);
+  VO.intro = HOOK + 1.7;
+  VO.routes = Math.max(HOOK + 6.6, VO.intro + LEN.intro + 0.35);
+  VO.guard = Math.max(VO.routes + 9.1, VO.routes + LEN.routes + 0.8);
   function w(id, word, nth = 0) {
     let k = 0;
     for (const [txt, a] of VT.words[id]) {
@@ -38,9 +44,17 @@
   }
 
   // ---------------------------------------------------------------- film time map (E = explainer, F = film)
-  const HOOK = 8.6;
-  const PILOT_IN = 46.48;
-  const PILOT_OUT = 52.9;
+  {
+    const ho = w("guard", "held") - 0.08 + 0.6;
+    VO.handoff = Math.max(VO.guard + 8.3, VO.guard + LEN.guard + 0.3, ho + 0.24);
+    VO.service = Math.max(VO.handoff + 6.2, VO.handoff + LEN.handoff + 0.6);
+  }
+  const CONV = VO.service + LEN.service + 0.13;
+  const PILOT_IN = CONV + 1.28;
+  VO.pilot = PILOT_IN + 0.42;
+  const PILOT_OUT = VO.pilot + LEN.pilot + 1.1;
+  VO.close = PILOT_OUT + 0.7;
+  const DUR = Math.max(60, VO.close + LEN.close + 2.4);
   let K, darkE, E_v, E_iris, E_held;
   function buildMap() {
     E_v = w("routes", "matches");
@@ -69,7 +83,7 @@
       [E_held - 0.08, 7.7],
       [ho, 8.3], // HELD on "held"
       [ho + 1.85, 10.15], // when it's hard / a person takes over
-      [VO.service + 6.4, 10.84], // hold (nothing moves in the film here)
+      [CONV, 10.84], // hold (nothing moves in the film here)
       [PILOT_IN, 12.12], // everything folds into the mark
       [PILOT_OUT, 12.12], // hold under the pilot
       [PILOT_OUT + 0.43, 12.55],
@@ -123,9 +137,9 @@
       { t: darkE, x: X_G, y: y12, z: 44, e: E.expoIn },
       { t: E_iris, x: X_G, y: y12, z: 44, e: E.lin },
       { t: E_iris + 1e-4, x: LC.x, y: LC.y, z: 1, e: null },
-      { t: VO.service - 0.1, x: LC.x + 30, y: LC.y + 10, z: 1.08, e: E.lin },
-      { t: VO.service + 0.9, x: OV.x, y: OV.y - 110, z: OV.z, e: E.inOut },
-      { t: VO.service + 6.4, x: OV.x + 15, y: OV.y - 110, z: OV.z * 1.03, e: E.lin },
+      { t: VO.service - 1.0, x: LC.x + 30, y: LC.y + 10, z: 1.08, e: E.lin },
+      { t: VO.service, x: OV.x, y: OV.y - 110, z: OV.z, e: E.inOut },
+      { t: CONV, x: OV.x + 15, y: OV.y - 110, z: OV.z * 1.03, e: E.lin },
       { t: PILOT_IN, x: MX, y: MY, z: 0.95, e: E.inOut },
       { t: PILOT_OUT, x: MX, y: MY, z: 0.95, e: E.lin },
       { t: PILOT_OUT + 1.05, x: MX, y: MY + 110, z: 0.52, e: E.brand },
@@ -422,7 +436,7 @@
 
   // ---------------------------------------------------------------- scene 5: managed service (notes on the system)
   function serviceWorld(ctx, t) {
-    const a = 1 - prog(t, VO.service + 6.35, VO.service + 6.7);
+    const a = 1 - prog(t, CONV - 0.05, CONV + 0.3);
     if (t < VO.service + 1.4 || a <= 0) return;
     ctx.save();
     ctx.globalAlpha = a;
@@ -507,7 +521,7 @@
   }
   function drawServiceType(ctx, t) {
     const t0 = VO.service - 0.02;
-    const a = 1 - prog(t, VO.service + 6.35, VO.service + 6.7);
+    const a = 1 - prog(t, CONV - 0.05, CONV + 0.3);
     if (t < t0 || a <= 0) return;
     ctx.save();
     ctx.globalAlpha = a;
@@ -809,5 +823,5 @@
     return Object.entries(VO).map(([id, t]) => ({ id, t }));
   }
 
-  window.PIECE = { render, samplesAt, cues, voice, DUR, FPS, VO, fmap, Einv: (f) => Einv(f), sections: () => ({ HOOK, darkE, E_iris, E_v, E_held, PILOT_IN, PILOT_OUT, conv: Einv(10.84), plate: Einv(12.05), lock: Einv(12.55), closeEnd: w("close", "matters") + 0.4, VO }) };
+  window.PIECE = { render, samplesAt, cues, voice, DUR, FPS, VO, fmap, Einv: (f) => Einv(f), sections: () => ({ HOOK, darkE, E_iris, E_v, E_held, PILOT_IN, PILOT_OUT, conv: Einv(10.84), plate: Einv(12.05), lock: Einv(12.55), closeEnd: w("close", "matters") + 0.4, VO, DUR }) };
 })();

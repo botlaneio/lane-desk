@@ -103,3 +103,12 @@ New scenes cover what the film doesn't say.
 - **Music:** `explainer/score.py` uses the film's instruments and key, arranged on the explainer's section times. It cuts hard into the guard, lifts on the light, drops the drums as the lanes converge, and resolves on the mark.
 - **Mix:** `explainer/mix.py` lets the voice lead. The music ducks about 9 dB and the effects about 8 dB while the voice speaks. Mastering is the same as the film: −14 LUFS, −2 dBTP, re-measured after AAC.
 - **Build:** run `explainer/build.sh`.
+
+## Hindi voiceover version
+
+`explainer/build-hi.sh` builds the same explainer with a Hindi voiceover. The picture, the on-screen text and the product demo stay as they are. Showing the product replying in Hindi would claim a feature the site still lists as *Planned*.
+
+- **Script:** `explainer/script-hi.json` is everyday spoken Hindi. It keeps only the English words everyone uses and the voice pronounces well (WhatsApp, order, store, AI, policy, pilot). Words the model mangled, like "customers" and "discount", became ग्राहक and छूट.
+- **Timing:** each line is split into segments, and each segment is tagged with the beat it carries (`held`, `matches`, `discount`…). `voice_segments.py` speaks the segments and joins them with natural pauses, so every beat time is exact. The picture uses those times, so VERIFIED, the strike-through and HELD land on the Hindi words for them.
+- **Length:** Hindi sentences run longer, so the edit stretches to about 75 seconds. Each section waits for its line, and nothing overlaps. The English build is unchanged at 60 seconds.
+- **Voice:** Kokoro `hf_alpha` at 1.25× speed, the clearest of the four Hindi voices by character error rate against the script. It still flattens some aspirated sounds, for example हाथ comes out close to "हाद". For a native-sounding voice, generate the lines with ElevenLabs (multilingual) or record them, save them as `out/vo-hi/<id>.wav`, and keep the anchor times, or re-split them to match.
