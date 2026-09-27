@@ -262,6 +262,28 @@ body {
   }
 }
 
+/* logo mark: the same blink and scan timings as the botlane.io mark */
+.lm .lm-eye,
+.lm .lm-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.lm .lm-eye {
+  animation: lm-blink 7.2s ease-in-out 1.4s infinite;
+}
+.lm .lm-dot {
+  animation: lm-scan 11s cubic-bezier(0.45, 0, 0.55, 1) 2.6s infinite;
+}
+@keyframes lm-blink {
+  0%, 92%, 96.5%, 100% { transform: scaleY(1); }
+  94.2% { transform: scaleY(0.09); }
+}
+@keyframes lm-scan {
+  0%, 14% { transform: translateX(0); }
+  46%, 54% { transform: translateX(12px); }
+  86%, 100% { transform: translateX(0); }
+}
+
 /* hero entrance: CSS so it runs before (and without) JavaScript */
 @keyframes rise {
   from {
@@ -293,5 +315,8 @@ body {
   [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
+  }
+  .lm * {
+    animation: none !important;
   }
 }

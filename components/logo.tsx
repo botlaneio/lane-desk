@@ -1,12 +1,11 @@
-const PLATE =
-  "M8 0h16a8 8 0 0 1 8 8v16a8 8 0 0 1-8 8H8a8 8 0 0 1-8-8V8a8 8 0 0 1 8-8Z" +
-  "M9.5 12.5h13a3.5 3.5 0 0 1 0 7h-13a3.5 3.5 0 0 1 0-7Z";
-
 export function LogoMark({ className = "size-7" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 32 32" className={className} aria-hidden="true" focusable="false">
-      <path d={PLATE} fillRule="evenodd" className="fill-ink" />
-      <circle cx="10" cy="16" r="2.25" className="fill-orange" />
+    <svg viewBox="0 0 32 32" className={`lm ${className}`} aria-hidden="true" focusable="false">
+      <rect width="32" height="32" rx="8" className="fill-ink" />
+      <g className="lm-eye">
+        <rect x="6" y="12.5" width="20" height="7" rx="3.5" className="fill-surface" />
+        <circle className="lm-dot fill-orange" cx="10" cy="16" r="2.25" />
+      </g>
     </svg>
   );
 }
