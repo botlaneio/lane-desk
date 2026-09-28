@@ -170,7 +170,7 @@ export function Footer() {
       <div className="border-t border-hairline">
         <div className="container-page flex flex-col gap-3 py-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-[15px] text-ink-2">
-            © {new Date().getFullYear()} BotLane LLC · Owned by Vedanta Ventures
+            © {new Date().getFullYear()} Vedanta Ventures · BotLane India
           </p>
           <p className="font-mono text-[12px] font-medium tracking-[0.14em] text-ink-2">
             PRIVATE · MANAGED · HUMAN-CONTROLLED
