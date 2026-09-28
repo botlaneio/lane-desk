@@ -88,9 +88,9 @@
         [tNav1 + 0.55, 960, 540, 1.0], [w("assist", "answers") + 0.6, 960, 520, 1.0],
         [w("assist", "order") - 0.3, 960, 520, 1.0],
         // framed a little low so the page heading above the card stays out of shot
-        [w("assist", "order") + 0.55, center(heroCard)[0], center(heroCard)[1] + 30, 2.05],
-        [w("assist", "number") + 0.1, center(heroCard)[0], center(heroCard)[1] + 32, 2.2],
-        [vend("assist") + 0.2, center(heroCard)[0] + 20, center(heroCard)[1] + 38, 2.25],
+        [w("assist", "order") + 0.55, center(heroCard)[0], center(heroCard)[1] + 58, 2.05],
+        [w("assist", "number") + 0.1, center(heroCard)[0], center(heroCard)[1] + 58, 2.2],
+        [vend("assist") + 0.2, center(heroCard)[0] + 20, center(heroCard)[1] + 60, 2.25],
         [VO.guard - 0.1, 960, 2110, 1.0], // scroll to the reply guard
         [w("guard", "if") - 0.25, 960, 2120, 1.03],
         [w("guard", "if") + 0.5, ...center(heldCard), 2.25],
@@ -414,11 +414,11 @@
     ctx.fillText("PRIVATE · MANAGED · HUMAN-CONTROLLED", 960, 842);
     ctx.textAlign = "left";
     ctx.restore();
-    // cursor presses the button
+    // cursor presses the button, then leaves the frame clean
     const ca = [tp - 1.2, 1500, 930], cb = [tp, 960 + 60, 640 + 44];
     if (t > ca[0]) {
       const p = E.inOut(prog(t, ca[0], cb[0]));
-      drawArrow(ctx, lerp(ca[1], cb[1], p), lerp(ca[2], cb[2], p), prog(t, ca[0], ca[0] + 0.2), t >= tp && t < tp + 0.45 ? t - tp : -1);
+      drawArrow(ctx, lerp(ca[1], cb[1], p), lerp(ca[2], cb[2], p), prog(t, ca[0], ca[0] + 0.2) * (1 - prog(t, tp + 0.7, tp + 1.1)), t >= tp && t < tp + 0.45 ? t - tp : -1);
     }
   }
 
