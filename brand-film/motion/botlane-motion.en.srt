@@ -1,0 +1,83 @@
+1
+00:00:00,800 --> 00:00:03,000
+WhatsApp. Excel. Tally.
+
+2
+00:00:03,020 --> 00:00:06,080
+The GST portal. You already have the software.
+
+3
+00:00:06,560 --> 00:00:09,660
+Yet someone on your team still copies, re-enters and
+
+4
+00:00:09,680 --> 00:00:11,260
+reconciles, by hand.
+
+5
+00:00:12,402 --> 00:00:15,822
+Meet BotLane. Focused software for the work that still
+
+6
+00:00:15,842 --> 00:00:17,222
+gets done manually.
+
+7
+00:00:18,255 --> 00:00:20,135
+Our first lane is Lane Assist.
+
+8
+00:00:20,755 --> 00:00:23,715
+It answers routine WhatsApp questions for your online
+
+9
+00:00:23,735 --> 00:00:24,635
+store.
+
+10
+00:00:25,412 --> 00:00:28,352
+Where is my order? It matches the customer's number
+
+11
+00:00:28,372 --> 00:00:31,292
+first, then answers only from your store.
+
+12
+00:00:32,109 --> 00:00:35,169
+Every AI draft is checked against your policy.
+
+13
+00:00:35,709 --> 00:00:36,909
+A discount you don't offer?
+
+14
+00:00:36,929 --> 00:00:37,789
+Held.
+
+15
+00:00:38,583 --> 00:00:41,403
+And when it's hard, a person takes over, with the
+
+16
+00:00:41,423 --> 00:00:42,243
+whole chat.
+
+17
+00:00:43,217 --> 00:00:45,877
+We connect it, write the rules with you, and review
+
+18
+00:00:45,897 --> 00:00:48,317
+it every week. Built for India.
+
+19
+00:00:48,557 --> 00:00:49,837
+Priced in rupees.
+
+20
+00:00:51,891 --> 00:00:54,791
+BotLane. Software for the work that still gets done
+
+21
+00:00:54,811 --> 00:00:57,871
+manually. Talk to us at botlane.in.

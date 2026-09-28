@@ -1,0 +1,35 @@
+[
+ {
+  "id": "gap",
+  "text": "WhatsApp. Excel. Tally. The GST portal. You already have the software. Yet someone on your team still copies, re-enters and reconciles, by hand.",
+  "say": "WhatsApp. Excel. Tally. The G. S. T. portal. You already have the software. Yet someone on your team still copies, re-enters and reconciles, by hand."
+ },
+ {
+  "id": "meet",
+  "text": "Meet BotLane. Focused software for the work that still gets done manually."
+ },
+ {
+  "id": "assist",
+  "text": "Our first lane is Lane Assist. It answers routine WhatsApp questions for your online store."
+ },
+ {
+  "id": "order",
+  "text": "Where is my order? It matches the customer's number first, then answers only from your store."
+ },
+ {
+  "id": "guard",
+  "text": "Every AI draft is checked against your policy. A discount you don't offer? Held."
+ },
+ {
+  "id": "person",
+  "text": "And when it's hard, a person takes over, with the whole chat."
+ },
+ {
+  "id": "service",
+  "text": "We connect it, write the rules with you, and review it every week. Built for India. Priced in rupees."
+ },
+ {
+  "id": "close",
+  "text": "BotLane. Software for the work that still gets done manually. Talk to us at botlane dot in."
+ }
+]
