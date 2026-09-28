@@ -1,13 +1,21 @@
+import type { Metadata } from "next";
 import { Bubble, FlowCard } from "@/components/chat";
 import { CONTACT, External } from "@/components/external";
 import { Footer } from "@/components/footer";
 import { HeroChat } from "@/components/hero-chat";
-import { Logo, LogoMark } from "@/components/logo";
+import { LogoMark } from "@/components/logo";
 import { Replay } from "@/components/replay";
 import { Reveal } from "@/components/reveal";
 import { RouteCycler, type Route } from "@/components/route-cycler";
+import { SiteHeader } from "@/components/site-header";
+import { Arrow, Check, Eyebrow, rise } from "@/components/ui";
+
+const TITLE = "Lane Assist: managed WhatsApp support for Indian online stores";
+const DESCRIPTION =
+  "Lane Assist answers routine WhatsApp questions, checks every AI reply against your store policy, and hands the hard conversations to a person. Run for you by BotLane.";
 
 const NAV = [
+  { href: "/#products", label: "All products" },
   { href: "#how-it-works", label: "How it works" },
   { href: "#the-guard", label: "Reply guard" },
   { href: "#service", label: "Managed service" },
@@ -87,63 +95,26 @@ const INCLUDED = [
   "A weekly WhatsApp report",
 ];
 
-function Eyebrow({ children, onInk = false }: { children: React.ReactNode; onInk?: boolean }) {
-  return <p className={`t-eyebrow ${onInk ? "text-on-ink-2" : ""}`}>{children}</p>;
-}
 
-function Check({ onInk = false }: { onInk?: boolean }) {
-  return (
-    <svg
-      viewBox="0 0 16 16"
-      aria-hidden="true"
-      focusable="false"
-      className={`mt-[3px] size-4 shrink-0 ${onInk ? "stroke-on-ink-2" : "stroke-ink-2"}`}
-      fill="none"
-      strokeWidth="1.75"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M3.5 8.5l3 3 6-7" />
-    </svg>
-  );
-}
+export const metadata: Metadata = {
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: "/assist" },
+  openGraph: {
+    type: "website",
+    url: "/assist",
+    siteName: "BotLane",
+    title: TITLE,
+    description: DESCRIPTION,
+    locale: "en_IN",
+  },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
+};
 
-function Arrow({ delay }: { delay: number }) {
-  const style = { "--d": `${delay}ms` } as React.CSSProperties;
-  return (
-    <span aria-hidden="true" className="flex items-center justify-center py-1 md:py-0">
-      <span className="relative flex h-6 w-px items-center justify-center bg-border md:h-px md:w-8">
-        <span className="flow-dot-y absolute size-1.5 rounded-full bg-ink md:hidden" style={style} />
-        <span className="flow-dot absolute hidden size-1.5 rounded-full bg-ink md:block" style={style} />
-      </span>
-    </span>
-  );
-}
-
-const rise = (i: number) => ({ "--i": i }) as React.CSSProperties;
-
-export default function Home() {
+export default function LaneAssistPage() {
   return (
     <>
-      <header id="top" className="sticky top-0 z-50 border-b border-hairline bg-surface">
-        <div className="container-page flex h-16 items-center justify-between gap-4">
-          <Logo />
-          <nav aria-label="Primary" className="hidden lg:block">
-            <ul className="flex items-center gap-7">
-              {NAV.map((l) => (
-                <li key={l.href}>
-                  <a href={l.href} className="rounded text-[15px] font-medium text-ink-2 hover:text-ink">
-                    {l.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-          <External href={CONTACT} className="btn btn-primary btn-sm">
-            Talk to us
-          </External>
-        </div>
-      </header>
+      <SiteHeader variant="assist" logoHref="/assist" nav={NAV} cta="Talk to us" />
 
       <main id="main" tabIndex={-1} className="outline-none">
         {/* 1 · Hero */}

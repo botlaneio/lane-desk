@@ -10,13 +10,19 @@ export function LogoMark({ className = "size-7" }: { className?: string }) {
   );
 }
 
-export function Logo() {
+const LOCKUPS = {
+  assist: { name: "Lane Assist", sub: "by BotLane", label: "Lane Assist by BotLane" },
+  botlane: { name: "botLane", sub: "India", label: "BotLane India" },
+};
+
+export function Logo({ variant = "assist", href = "#top" }: { variant?: keyof typeof LOCKUPS; href?: string }) {
+  const l = LOCKUPS[variant];
   return (
-    <a href="#top" aria-label="Lane Assist by BotLane, back to top" className="inline-flex items-center gap-2.5 rounded-md">
+    <a href={href} aria-label={`${l.label}, home`} className="inline-flex items-center gap-2.5 rounded-md">
       <LogoMark />
       <span className="flex flex-col gap-[3px] whitespace-nowrap">
-        <span className="text-[16px] leading-none font-semibold tracking-[-0.01em] text-ink">Lane Assist</span>
-        <span className="text-[11px] leading-none font-medium text-ink-2">by BotLane</span>
+        <span className="text-[16px] leading-none font-semibold tracking-[-0.01em] text-ink">{l.name}</span>
+        <span className="text-[11px] leading-none font-medium text-ink-2">{l.sub}</span>
       </span>
     </a>
   );
