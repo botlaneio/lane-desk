@@ -1,4 +1,4 @@
-export type LaneStatus = "Available" | "In development" | "In research";
+export type LaneStatus = "In development" | "In research";
 
 export type Lane = {
   id: string;
@@ -8,25 +8,13 @@ export type Lane = {
   headline: string;
   description: string;
   manualWork: string;
-  href?: string;
 };
 
-// Lane Assist is the only live product. The others are directions: keep their copy to the problem, not features.
+// None of these are launched. Keep their copy to the problem, not features, pricing or dates.
 export const LANES: Lane[] = [
   {
-    id: "lane-assist",
-    index: "01",
-    name: "Lane Assist",
-    status: "Available",
-    headline: "Customer support, handled.",
-    description:
-      "Lane Assist handles routine customer conversations for online stores and brings in a person when it shouldn’t answer.",
-    manualWork: "Answering the same order, product and return questions on WhatsApp, all day.",
-    href: "/assist",
-  },
-  {
     id: "lane-verify",
-    index: "02",
+    index: "01",
     name: "Lane Verify",
     status: "In development",
     headline: "Documents checked. Books matched.",
@@ -36,7 +24,7 @@ export const LANES: Lane[] = [
   },
   {
     id: "lane-engage",
-    index: "03",
+    index: "02",
     name: "Lane Engage",
     status: "In research",
     headline: "Turn conversations into business.",
@@ -46,7 +34,7 @@ export const LANES: Lane[] = [
   },
   {
     id: "lane-settle",
-    index: "04",
+    index: "03",
     name: "Lane Settle",
     status: "In research",
     headline: "Know where the money went.",

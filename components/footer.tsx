@@ -9,7 +9,7 @@ type Item = { label: string; href?: string; external?: boolean };
 const COLUMNS: { title: string; items: Item[] }[] = [
   {
     title: "Products",
-    items: LANES.map((l) => ({ label: l.name, href: l.href ?? `/#${l.id}` })),
+    items: LANES.map((l) => ({ label: l.name, href: `/#${l.id}` })),
   },
   {
     title: "Company",

@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         destination: "https://www.botlane.io/contact",
         permanent: false,
       },
+      {
+        source: "/assist",
+        destination: "/#products",
+        permanent: false,
+      },
     ];
   },
 };

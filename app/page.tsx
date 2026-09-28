@@ -27,7 +27,6 @@ export const metadata: Metadata = {
 
 const NAV = [
   { href: "#products", label: "Products" },
-  { href: "/assist", label: "Lane Assist" },
   { href: "#how", label: "How we build" },
   { href: "#india", label: "India" },
 ];
@@ -55,7 +54,7 @@ const INDIA = [
     "Indian marketplaces",
     "Marketplace fees, returns and RTO are the starting point, not an edge case.",
   ],
-  ["Priced in rupees", "Plain ₹ pricing. The Lane Assist pilot is ₹6,999/month, with setup scoped separately."],
+  ["Priced in rupees", "Plain ₹ pricing, sized for Indian businesses rather than converted from dollars."],
   ["A person at the exception", "When software reaches something it shouldn’t decide, a person takes it. By design."],
 ];
 
@@ -69,7 +68,7 @@ const MANAGED = [
 ];
 
 function StatusChip({ status }: { status: Lane["status"] }) {
-  return <span className={`chip ${status === "Available" ? "chip-held" : "chip-planned"}`}>{status}</span>;
+  return <span className="chip chip-planned">{status}</span>;
 }
 
 function LaneBody({ lane }: { lane: Lane }) {
@@ -93,8 +92,6 @@ function LaneBody({ lane }: { lane: Lane }) {
 }
 
 export default function Home() {
-  const [assist, ...concepts] = LANES;
-
   return (
     <>
       <SiteHeader nav={NAV} cta="Talk to BotLane" />
@@ -149,7 +146,7 @@ export default function Home() {
                 {LANES.map((l) => (
                   <li key={l.id}>
                     <a
-                      href={l.href ?? `#${l.id}`}
+                      href={`#${l.id}`}
                       className="flex items-center justify-between gap-4 rounded py-3 hover:text-ink"
                     >
                       <span className="flex items-baseline gap-3">
@@ -236,39 +233,10 @@ export default function Home() {
             </p>
           </Reveal>
 
-          <ol className="mt-10">
-            <li id={assist.id} className="scroll-mt-24">
-              <Reveal className="card grid gap-4 p-6 md:gap-6 md:p-8 lg:grid-cols-12 lg:gap-8">
-                <LaneBody lane={assist} />
-                <div className="flex flex-col gap-4 lg:col-span-3 lg:items-end lg:justify-between lg:text-right">
-                  <ul className="flex flex-wrap gap-1.5 lg:justify-end" aria-label="How Lane Assist behaves">
-                    {["Number matched", "Guard passed", "Person when needed"].map((c) => (
-                      <li
-                        key={c}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-hairline bg-surface px-2 py-0.5 font-mono text-[11px] font-medium tracking-[0.04em] text-ink-2 uppercase"
-                      >
-                        <span aria-hidden="true" className="text-verified">
-                          ✓
-                        </span>
-                        {c}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="flex flex-col gap-3 lg:items-end">
-                    <p className="font-mono text-[12px] font-medium tracking-[0.04em] text-ink-2">
-                      PILOT · ₹6,999/MONTH
-                    </p>
-                    <a href={assist.href} className="btn btn-dark">
-                      Explore Lane Assist <span aria-hidden="true">→</span>
-                    </a>
-                  </div>
-                </div>
-              </Reveal>
-            </li>
-
-            {concepts.map((lane) => (
+          <ol className="mt-10 border-t border-hairline">
+            {LANES.map((lane) => (
               <li key={lane.id} id={lane.id} className="scroll-mt-24">
-                <Reveal className="grid gap-3 border-b border-hairline px-6 py-6 md:gap-4 md:px-8 md:py-8 lg:grid-cols-12 lg:gap-8">
+                <Reveal className="grid gap-3 border-b border-hairline py-6 md:gap-4 md:py-8 lg:grid-cols-12 lg:gap-8">
                   <LaneBody lane={lane} />
                   <div className="lg:col-span-3 lg:flex lg:items-end lg:justify-end">
                     <External href={CONTACT} className="link inline-flex items-center gap-1 text-[15px] font-medium">
@@ -280,7 +248,7 @@ export default function Home() {
             ))}
           </ol>
 
-          <p className="mt-6 px-6 font-mono text-[12px] font-medium tracking-[0.06em] text-ink-2 md:px-8">
+          <p className="mt-6 font-mono text-[12px] font-medium tracking-[0.06em] text-ink-2">
             MORE LANES ARE BEING BUILT.
           </p>
         </section>
@@ -360,10 +328,6 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <p className="mt-6 text-[15px] text-ink-2">
-                Lane Assist runs this way today: BotLane sets it up, writes the policy rules with the store and reviews
-                held replies and handoffs every week.
-              </p>
             </Reveal>
           </div>
         </section>
