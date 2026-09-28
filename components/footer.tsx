@@ -1,5 +1,6 @@
 import { CONTACT, External } from "@/components/external";
 import { Logo } from "@/components/logo";
+import { LANES } from "@/lib/lanes";
 
 const BOTLANE = "https://www.botlane.io";
 
@@ -7,35 +8,26 @@ type Item = { label: string; href?: string; external?: boolean };
 
 const COLUMNS: { title: string; items: Item[] }[] = [
   {
-    title: "Product",
-    items: [
-      { label: "How it works", href: "#how-it-works" },
-      { label: "Reply guard", href: "#the-guard" },
-      { label: "Handoff", href: "#handoff" },
-      { label: "Managed service", href: "#service" },
-    ],
-  },
-  {
-    title: "Pricing",
-    items: [
-      { label: "Packages", href: "#pricing" },
-      { label: "Pilot", href: "#pilot" },
-      { label: "Launch offer", href: "#pilot" },
-    ],
-  },
-  {
-    title: "Works with",
-    items: [
-      { label: "WhatsApp Business Platform" },
-      { label: "Shopify" },
-      { label: "WooCommerce" },
-      { label: "Shiprocket" },
-    ],
+    title: "Products",
+    items: LANES.map((l) => ({ label: l.name, href: l.href ?? `/#${l.id}` })),
   },
   {
     title: "Company",
     items: [
-      { label: "Trust", href: `${BOTLANE}/trust`, external: true },
+      { label: "About", href: "/#how" },
+      { label: "Contact", href: CONTACT, external: true },
+    ],
+  },
+  {
+    title: "Resources",
+    items: [
+      { label: "Documentation", href: `${BOTLANE}/docs`, external: true },
+      { label: "Security", href: `${BOTLANE}/trust`, external: true },
+    ],
+  },
+  {
+    title: "Legal",
+    items: [
       { label: "Privacy", href: `${BOTLANE}/privacy`, external: true },
       { label: "Terms", href: `${BOTLANE}/terms`, external: true },
       { label: "Refund", href: `${BOTLANE}/refund`, external: true },
@@ -96,14 +88,21 @@ export function Footer() {
     <footer className="border-t border-hairline bg-surface">
       <div className="container-page pt-16 md:pt-20">
         <div className="max-w-[36rem]">
-          <Logo />
+          <Logo variant="botlane" href="/" />
           <p className="mt-6 text-[18px] leading-[1.55] text-ink-2 md:text-[20px]">
-            Managed WhatsApp support for Indian online stores. Routine questions answered, every AI reply checked
-            against your policy, and a person when it matters. Set up, run and reviewed by BotLane.
+            Focused software for the work Indian businesses still do by hand, between WhatsApp, spreadsheets and the
+            systems they already run. Built and operated by BotLane.
           </p>
           <External href={CONTACT} className="link mt-8 inline-flex items-center gap-2 text-[17px] font-medium">
-            Talk to us{" "}
+            Talk to BotLane{" "}
           </External>
+          <p className="mt-8 flex flex-wrap gap-x-3 gap-y-1 font-mono text-[12px] font-medium tracking-[0.06em] text-ink-2">
+            <span>BOTLANE.IN — INDIA</span>
+            <span aria-hidden="true">·</span>
+            <External href={BOTLANE} className="rounded hover:text-ink">
+              BOTLANE.IO — GLOBAL{" "}
+            </External>
+          </p>
         </div>
 
         <nav aria-label="Footer" className="mt-14 grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4 lg:gap-x-12">

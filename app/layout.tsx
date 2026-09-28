@@ -11,24 +11,13 @@ const jetbrains = JetBrains_Mono({
   display: "swap",
 });
 
-const title = "Lane Assist: managed WhatsApp support for Indian online stores";
-const description =
-  "Lane Assist answers routine WhatsApp questions, checks every AI reply against your store policy, and hands the hard conversations to a person. Run for you by BotLane.";
-
+// Pages set their own title, description and Open Graph; these are the shared defaults.
 export const metadata: Metadata = {
   metadataBase: new URL("https://botlane.in"),
-  title,
-  description,
-  alternates: { canonical: "/" },
-  openGraph: {
-    type: "website",
-    url: "/",
-    siteName: "Lane Assist by BotLane",
-    title,
-    description,
-    locale: "en_IN",
-  },
-  twitter: { card: "summary_large_image", title, description },
+  title: "BotLane",
+  description:
+    "BotLane builds and operates focused software for Indian businesses, removing repetitive operational work from WhatsApp, spreadsheets and disconnected systems.",
+  openGraph: { siteName: "BotLane", locale: "en_IN", type: "website" },
 };
 
 export const viewport: Viewport = {
