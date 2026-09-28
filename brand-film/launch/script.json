@@ -1,0 +1,30 @@
+[
+ {
+  "id": "hook",
+  "text": "You already have software. So why does so much work still get done by hand?"
+ },
+ {
+  "id": "intro",
+  "text": "Bot Lane builds and runs focused software for Indian businesses, for the repetitive work between WhatsApp, spreadsheets and the systems you already use."
+ },
+ {
+  "id": "assist",
+  "text": "The first lane, Lane Assist, answers routine WhatsApp questions for online stores. Order questions are answered from your store, only after the customer's number matches."
+ },
+ {
+  "id": "guard",
+  "text": "Every AI draft is checked against your policy. If it promises something you don't offer, it's held. And when it's hard, a person takes over, with the whole chat."
+ },
+ {
+  "id": "trust",
+  "text": "You don't set up a bot. Bot Lane connects it, writes the rules with you, and reviews every week. Private, managed, and human-controlled."
+ },
+ {
+  "id": "india",
+  "text": "It's built for how business works here. Work starts on WhatsApp, everything is priced in rupees, and the pilot is six thousand, nine hundred and ninety-nine rupees a month."
+ },
+ {
+  "id": "cta",
+  "text": "Bot Lane. Talk to us at botlane dot in."
+ }
+]

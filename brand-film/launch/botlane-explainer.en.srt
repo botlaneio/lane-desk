@@ -1,0 +1,107 @@
+1
+00:00:00,350 --> 00:00:01,700
+You already have software.
+
+2
+00:00:01,870 --> 00:00:04,420
+So why does so much work still get done by hand?
+
+3
+00:00:05,000 --> 00:00:06,900
+BotLane builds and runs focused
+
+4
+00:00:06,920 --> 00:00:08,760
+software for Indian businesses,
+
+5
+00:00:08,780 --> 00:00:10,710
+for the repetitive work between WhatsApp,
+
+6
+00:00:10,900 --> 00:00:13,410
+spreadsheets and the systems you already use.
+
+7
+00:00:13,900 --> 00:00:15,610
+The first lane, Lane Assist,
+
+8
+00:00:15,740 --> 00:00:16,720
+answers routine WhatsApp
+
+9
+00:00:16,740 --> 00:00:18,590
+questions for online stores.
+
+10
+00:00:18,920 --> 00:00:20,540
+Order questions are answered from your store,
+
+11
+00:00:20,560 --> 00:00:22,850
+only after the customer's number matches.
+
+12
+00:00:23,500 --> 00:00:26,090
+Every AI draft is checked against your policy.
+
+13
+00:00:26,540 --> 00:00:28,270
+If it promises something you don't offer,
+
+14
+00:00:28,780 --> 00:00:29,360
+it's held.
+
+15
+00:00:29,380 --> 00:00:31,800
+And when it's hard, a person takes over,
+
+16
+00:00:31,820 --> 00:00:33,290
+with the whole chat.
+
+17
+00:00:34,000 --> 00:00:34,780
+You don't set up a bot.
+
+18
+00:00:34,800 --> 00:00:36,620
+BotLane connects it,
+
+19
+00:00:36,640 --> 00:00:38,180
+writes the rules with you,
+
+20
+00:00:38,200 --> 00:00:40,210
+and reviews every week.
+
+21
+00:00:40,340 --> 00:00:41,910
+Private, managed, and human-controlled.
+
+22
+00:00:43,200 --> 00:00:44,700
+It's built for how business works here.
+
+23
+00:00:44,720 --> 00:00:46,120
+Work starts on WhatsApp,
+
+24
+00:00:46,140 --> 00:00:47,740
+everything is priced in rupees,
+
+25
+00:00:47,760 --> 00:00:52,590
+and the pilot is ₹6,999 a month.
+
+26
+00:00:55,000 --> 00:00:56,020
+BotLane.
+
+27
+00:00:56,040 --> 00:00:57,850
+Talk to us at botlane.in.

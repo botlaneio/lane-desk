@@ -2,9 +2,12 @@
 
     python3 explainer/mix.py out/explainer-cues.json out/vo out/explainer-score.wav out/explainer-mix.wav
 
+MUSIC_GAIN (default 0.5) and MUSIC_DUCK_DB (default 9) set how far the music sits under the voice.
+
 Then master with ../master.py (two-pass loudnorm to -14 LUFS / -2 dBTP, re-measured after AAC).
 """
 import json
+import os
 import pathlib
 import sys
 
@@ -62,10 +65,10 @@ def main(cue_path, vo_dir, music_path, out_path):
     # sidechain: music dips about 9 dB while the voice speaks, effects about 8 dB
     ve = envelope(voice.mean(axis=0))
     ve = np.clip(ve / (np.percentile(ve[ve > 1e-4], 60) + 1e-9), 0, 1)
-    duck_m = 1 - (1 - 10 ** (-9 / 20)) * ve
+    duck_m = 1 - (1 - 10 ** (-float(os.environ.get("MUSIC_DUCK_DB", 9)) / 20)) * ve
     duck_s = 1 - (1 - 10 ** (-8 / 20)) * ve
 
-    bus = voice * 1.0 + sfx * (rms(voice) / rms(sfx)) * 0.55 * duck_s + m * (rms(voice) / rms(m)) * 0.5 * duck_m
+    bus = voice * 1.0 + sfx * (rms(voice) / rms(sfx)) * 0.55 * duck_s + m * (rms(voice) / rms(m)) * float(os.environ.get("MUSIC_GAIN", 0.5)) * duck_m
     bus = np.tanh(bus * 1.3) / np.tanh(1.3)
     a, b = int((DUR - 0.8) * SR), int((DUR - 0.3) * SR)
     fade = np.ones(N)
