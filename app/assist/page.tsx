@@ -114,7 +114,7 @@ export const metadata: Metadata = {
 export default function LaneAssistPage() {
   return (
     <>
-      <SiteHeader variant="assist" logoHref="/assist" nav={NAV} cta="Talk to us" />
+      <SiteHeader logoHref="/assist" nav={NAV} cta="Talk to us" />
 
       <main id="main" tabIndex={-1} className="outline-none">
         {/* 1 · Hero */}

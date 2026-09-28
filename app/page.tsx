@@ -97,7 +97,7 @@ export default function Home() {
 
   return (
     <>
-      <SiteHeader variant="botlane" logoHref="/" nav={NAV} cta="Talk to BotLane" />
+      <SiteHeader logoHref="/" nav={NAV} cta="Talk to BotLane" />
 
       <main id="main" tabIndex={-1} className="outline-none">
         {/* 1 · Hero */}

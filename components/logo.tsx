@@ -10,19 +10,25 @@ export function LogoMark({ className = "size-7" }: { className?: string }) {
   );
 }
 
-const LOCKUPS = {
-  assist: { name: "Lane Assist", sub: "by BotLane", label: "Lane Assist by BotLane" },
+const LOCKUPS: Record<string, { name: string; sub?: string; label: string }> = {
   botlane: { name: "botLane", sub: "India", label: "BotLane India" },
+  wordmark: { name: "botLane", label: "BotLane" },
 };
 
-export function Logo({ variant = "assist", href = "#top" }: { variant?: keyof typeof LOCKUPS; href?: string }) {
+export function Logo({
+  variant = "wordmark",
+  href = "#top",
+}: {
+  variant?: "botlane" | "wordmark";
+  href?: string;
+}) {
   const l = LOCKUPS[variant];
   return (
     <a href={href} aria-label={`${l.label}, home`} className="inline-flex items-center gap-2.5 rounded-md">
       <LogoMark />
       <span className="flex flex-col gap-[3px] whitespace-nowrap">
         <span className="text-[16px] leading-none font-semibold tracking-[-0.01em] text-ink">{l.name}</span>
-        <span className="text-[11px] leading-none font-medium text-ink-2">{l.sub}</span>
+        {l.sub ? <span className="text-[11px] leading-none font-medium text-ink-2">{l.sub}</span> : null}
       </span>
     </a>
   );
