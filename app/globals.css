@@ -268,6 +268,14 @@ body {
   }
 }
 
+/* header background: shown by default, hidden at the top of the page only when JS can bring it back */
+.nav-backdrop {
+  transition: opacity 200ms ease-out;
+}
+.js .nav-backdrop:not([data-scrolled]) {
+  opacity: 0;
+}
+
 /* logo mark: the same blink and scan timings as the botlane.io mark */
 .lm .lm-eye,
 .lm .lm-dot {
