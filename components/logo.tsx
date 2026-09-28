@@ -14,10 +14,9 @@ export function Logo() {
   return (
     <a href="#top" aria-label="Lane Assist by BotLane, back to top" className="inline-flex items-center gap-2.5 rounded-md">
       <LogoMark />
-      <span className="flex items-baseline gap-1.5 whitespace-nowrap text-[15px] leading-none">
-        <span className="font-medium text-ink-2">botLane</span>
-        <span className="text-border" aria-hidden="true">/</span>
-        <span className="font-semibold tracking-[-0.01em] text-ink">Lane Assist</span>
+      <span className="flex flex-col gap-[3px] whitespace-nowrap">
+        <span className="text-[16px] leading-none font-semibold tracking-[-0.01em] text-ink">Lane Assist</span>
+        <span className="text-[11px] leading-none font-medium text-ink-2">by BotLane</span>
       </span>
     </a>
   );

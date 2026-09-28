@@ -51,9 +51,9 @@ export default function Image() {
               <div style={{ width: 9, height: 9, borderRadius: 9, background: ORANGE }} />
             </div>
           </div>
-          <div style={{ display: "flex", fontSize: 32, gap: 12 }}>
-            <span style={{ color: INK_2 }}>botLane /</span>
-            <span style={{ color: INK, fontWeight: 700 }}>Lane Assist</span>
+          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+            <span style={{ color: INK, fontSize: 36, fontWeight: 700, lineHeight: 1 }}>Lane Assist</span>
+            <span style={{ color: INK_2, fontSize: 22, lineHeight: 1 }}>by BotLane</span>
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
